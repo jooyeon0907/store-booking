@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+}
+
+group 'zerobase'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
+}
