@@ -7,5 +7,5 @@ public interface OwnerService extends UserDetailsService {
 
 	boolean register(SignInForm parameter);
 
-	long getOwnerId(String name);
+	Long getOwnerId(String name);
 }

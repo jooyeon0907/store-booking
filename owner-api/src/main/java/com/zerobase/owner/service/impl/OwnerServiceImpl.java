@@ -41,7 +41,7 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public long getOwnerId(String name) {
+	public Long getOwnerId(String name) {
 		return ownerRepository.findByName(name).get().getId();
 	}
 
