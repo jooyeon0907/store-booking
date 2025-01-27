@@ -41,6 +41,11 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
+	public long getOwnerId(String name) {
+		return ownerRepository.findByName(name).get().getId();
+	}
+
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Owner> optionalOwner = ownerRepository.findByName(username);
 		if (!optionalOwner.isPresent()) {

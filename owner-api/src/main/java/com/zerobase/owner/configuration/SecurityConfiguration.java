@@ -1,5 +1,6 @@
 package com.zerobase.owner.configuration;
 
+import com.zerobase.owner.service.OwnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,12 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
+
+    private final OwnerService ownerService;
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
@@ -25,6 +29,15 @@ public class SecurityConfiguration {
 		return new UserAuthenticationFailureHandler();
 	}
 
+    @Bean
+	UserAuthenticationSuccessHandler getSuccessHandler() {
+		return new UserAuthenticationSuccessHandler(ownerService);
+	}
+
+	@Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new UserLogoutSuccessHandler();  // 커스텀 로그아웃 성공 핸들러
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -35,7 +48,8 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(authorizeRequests ->
             authorizeRequests
             .requestMatchers("/",
-                    "/owner/register"
+                    "/owner/register",
+                    "/owner/login/**"
                     )
             .permitAll() // 모든 페이지에 접근 권한 허용
             .anyRequest()
@@ -47,8 +61,8 @@ public class SecurityConfiguration {
             formLogin
             .loginPage("/owner/login")
             .usernameParameter("name")
+            .successHandler(getSuccessHandler())
             .failureHandler(getFailureHandler())
-            .defaultSuccessUrl("/owner", true)
             .permitAll()
         );
 
@@ -56,7 +70,7 @@ public class SecurityConfiguration {
         http.logout(logout ->
             logout
             .logoutRequestMatcher(new AntPathRequestMatcher("/owner/logout"))
-            .logoutSuccessUrl("/owner")
+			.logoutSuccessHandler(logoutSuccessHandler())
             .invalidateHttpSession(true)
         );
 
@@ -65,6 +79,11 @@ public class SecurityConfiguration {
             .accessDeniedPage("/templates/error/denied")
         );
 
+//        http.sessionManagement(sessionManagement -> sessionManagement
+//            .invalidSessionUrl("/login?expired=true")  // 세션이 만료되면 이 URL로 리다이렉트
+//            .maximumSessions(1)
+//            .expiredUrl("/login?expired=true")
+//        );
 
         return http.build();
     }

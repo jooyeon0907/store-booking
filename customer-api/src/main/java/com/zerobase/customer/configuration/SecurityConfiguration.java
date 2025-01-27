@@ -37,7 +37,8 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(authorizeRequests ->
             authorizeRequests
             .requestMatchers("/",
-                    "/customer/register"
+                    "/customer/register",
+                    "/customer/login/**"
                     )
             .permitAll() // 모든 페이지에 접근 권한 허용
             .anyRequest()

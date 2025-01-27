@@ -18,7 +18,11 @@ public class OwnerController {
 	private final OwnerService ownerService;
 
 	@GetMapping
-	public String owner(){
+	public String owner(HttpServletRequest request){
+		Long ownerId = (Long) request.getSession().getAttribute("ownerId");
+
+        // ownerId를 이용해 필요한 처리를 합니다.
+        System.out.println("Logged in Owner ID: " + ownerId);
 		return "owner/index";
 	}
 
@@ -37,10 +41,12 @@ public class OwnerController {
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request) {
+		Long ownerId = (Long) request.getSession().getAttribute("ownerId");
+
+        System.out.println("login in Owner ID: " + ownerId);
 		return "owner/login";
 	}
-
 
 
 }
