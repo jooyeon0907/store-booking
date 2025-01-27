@@ -1,2 +1,15 @@
 server:
- port: 8080
+  port: 8080
+
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:mariadb://localhost:43306/booking
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: booking_user
+    password: 1234
