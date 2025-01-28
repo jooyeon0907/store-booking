@@ -2,6 +2,7 @@ package com.zerobase.owner.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -21,6 +22,7 @@ public class Store {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+	@Column(unique = true)
     private String name;
     private String location;
     private String description;

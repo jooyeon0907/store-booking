@@ -9,6 +9,10 @@
     <h1>매장 등록</h1>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
 
+	<div th:if="${errorMessage}" class="error-message">
+		<p th:text="${errorMessage}"></p>
+	</div>
+
 	<form method="post" onsubmit="return validateForm(event)">
 		<div>
 			<input type="text" name="name" placeholder="이름 입력" required/>

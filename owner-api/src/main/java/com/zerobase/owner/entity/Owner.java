@@ -13,6 +13,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Owner extends BaseUser {
-	@OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Store store;
+	@OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
+	private Store store;
 }

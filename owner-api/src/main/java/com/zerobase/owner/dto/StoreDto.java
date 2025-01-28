@@ -20,6 +20,7 @@ public class StoreDto {
 
     public static StoreDto of(Store store) {
         return StoreDto.builder()
+                .id(store.getId())
                 .name(store.getName())
                 .location(store.getLocation())
                 .description(store.getDescription())

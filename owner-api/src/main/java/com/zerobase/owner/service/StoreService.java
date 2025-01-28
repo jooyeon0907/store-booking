@@ -10,4 +10,8 @@ public interface StoreService{
 	StoreDto detail(Long ownerId);
 
 	boolean register(Long ownerId, StoreInput parameter);
+
+	boolean del(Long id);
+
+	boolean update(StoreInput id);
 }
