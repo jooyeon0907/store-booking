@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>매장 등록</title>
+    </script>
+</head>
+<body>
+    <h1>매장 등록</h1>
+	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+	<form method="post" onsubmit="return validateForm(event)">
+		<div>
+			<input type="text" name="name" placeholder="이름 입력" required/>
+		</div>
+		<div>
+			<input type="location" name="location" placeholder="위치 입력" required/>
+		</div>
+		<div>
+			<input type="description" name="description" placeholder="설명 입력" required/>
+		</div>
+
+		<div>
+			<button>매장 등록</button>
+		</div>
+	</form>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.zerobase.owner.service.impl;
 
+import com.zerobase.owner.dto.StoreDto;
 import com.zerobase.owner.entity.Store;
 import com.zerobase.owner.model.StoreInput;
 import com.zerobase.owner.repository.OwnerRepository;
@@ -8,12 +9,22 @@ import com.zerobase.owner.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
 
 	private final StoreRepository storeRepository;
 	private final OwnerRepository ownerRepository;
+
+	@Override
+	public StoreDto detail(Long ownerId) {
+		Store store = storeRepository.findByOwnerId(ownerId)
+				.orElseThrow(() -> new RuntimeException("등록된 매장이 없습니다."));
+		return StoreDto.of(store);
+	}
 
 	@Override
 	public boolean register(Long ownerId, StoreInput parameter) {

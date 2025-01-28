@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 화면</title>
+    <style>
+        .detail table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .detail table th, .detail table td {
+            border: solid 1px #000;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>매장 관리</h1>
+	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+    <div class="detail" th:if="${store != null}">
+        <table>
+            <tbody>
+                <tr>
+                    <th>이름</th>
+                    <td>
+                        <p th:text="${store.name}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>위치</th>
+                    <td>
+                        <p th:text="${store.location}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>설명</th>
+                    <td>
+                        <p th:text="${store.description}"></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${store == null}">
+        <p>등록된 매장이 없습니다.</p>
+    </div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.zerobase.owner.controller;
 
+import com.zerobase.owner.dto.StoreDto;
 import com.zerobase.owner.model.StoreInput;
 import com.zerobase.owner.model.StoreParam;
 import com.zerobase.owner.service.StoreService;
@@ -39,12 +40,21 @@ public class StoreController {
 	 	 }
 		model.addAttribute("result", result);
 
-		return "redirect:/store/info";
+		return "redirect:/store/detail";
 	}
 
-	@GetMapping("/info")
-	public String list(Model model, StoreParam parameter) {
-		return "store/info";
+	@GetMapping("/detail")
+	public String detail(Model model, HttpServletRequest request) {
+		Long ownerId = (Long) request.getSession().getAttribute("ownerId");
+
+		StoreDto store = null;
+		try{
+			store = storeService.detail(ownerId);
+		}catch (Exception e){
+		};
+		model.addAttribute("store", store);
+
+		return "store/detail";
 	}
 
 
