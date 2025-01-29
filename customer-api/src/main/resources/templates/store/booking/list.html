@@ -27,10 +27,10 @@
             <thead>
                 <tr>
                     <th>매장명</th>
-                    <th>예약한 날짜</th>
-                    <th>예약 상태</th>
                     <th>방문할 날짜</th>
                     <th>방문 상태</th>
+                    <th>예약한 날짜</th>
+                    <th>예약 상태</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,11 +40,11 @@
                            th:href="${'/store/detail?id=' + booking.store.id}">
                         </a>
                     </td>
-                    <td th:text="${booking.bookingDate}"></td>
-                    <td th:text="${booking.bookingStatus.code}"></td>
                     <td th:text="${booking.visitDate}"></td>
                     <td th:if="${booking.visitStatus}">방문 완료</td>
                     <td th:if="${booking.visitStatus eq false}">방문 전</td>
+                    <td th:text="${booking.bookingDate}"></td>
+                    <td th:text="${booking.bookingStatus.code}"></td>
                 </tr>
                 <tr th:if="${#lists.size(bookingList) < 1}">
                     <td colspan="5">

@@ -33,7 +33,7 @@
 	</div>
 
     <div>
-        <form th:action="@{/store/booking}" method="post">
+        <form method="post">
             <input th:value="${customerId}" type="hidden" name="customerId"/>
             <input th:value="${store.id}" type="hidden" name="storeId"/>
             <label for="visitDate">방문 날짜 및 시간:</label>
