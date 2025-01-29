@@ -25,4 +25,9 @@ public class StoreServiceImpl implements StoreService {
 		List<Store> stores = storeRepository.findAll();
 		return StoreDto.of(stores);
 	}
+
+	@Override
+	public StoreDto detail(Long id) {
+		return StoreDto.of(storeRepository.findById(id).get());
+	}
 }

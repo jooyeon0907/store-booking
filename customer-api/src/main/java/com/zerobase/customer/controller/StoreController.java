@@ -1,14 +1,13 @@
 package com.zerobase.customer.controller;
 
-import com.zerobase.customer.model.SignInForm;
-import com.zerobase.customer.service.CustomerService;
 import com.zerobase.customer.service.StoreService;
 import com.zerobase.owner.dto.StoreDto;
-import jakarta.servlet.http.HttpServletRequest;
+import com.zerobase.owner.repository.model.StoreParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -32,12 +31,27 @@ public class StoreController {
 		return "store/list";
 	}
 
-
 	@GetMapping("/detail")
-	public String detail(Model model, HttpServletRequest request, SignInForm parameter) {
+	public String detail(Model model, StoreParam parameter) {
+
+		StoreDto store = storeService.detail(parameter.getId());
+		model.addAttribute("store", store);
 
 		return "store/detail";
 	}
+
+	@GetMapping("/booking")
+	public String booking(Model model, StoreParam parameter) {
+
+		return "store/booking";
+	}
+
+	@PostMapping("/booking")
+	public String bookingComplete(Model model, StoreParam parameter) {
+
+		return null;
+	}
+
 
 
 

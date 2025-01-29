@@ -34,17 +34,17 @@
             </thead>
             <tbody>
                 <tr th:each="store : ${storeList}">
-                    <td th:text="${store.id}">
-                        <input th:value="${store.id}" type="hidden" name="id"/>
-                        <p th:text="${store.id}"></p>
-                    </td>
-                    <td th:text="${store.name}">
+                    <td th:text="${store.id}"></td>
+                    <td>
+                        <a th:text="${store.name}"
+                           th:href="${'/store/detail?id=' + store.id}">
+                        </a>
                     </td>
                     <td th:text="${store.location}"></td>
                     <td th:text="${store.description}"></td>
                 </tr>
                 <tr th:if="${#lists.size(storeList) < 1}">
-                    <td colspan="3">
+                    <td colspan="4">
                         <p class="nothing">내용이 없습니다.</p>
                     </td>
                 </tr>

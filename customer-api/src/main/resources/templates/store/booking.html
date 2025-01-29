@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>매장 예약</title>
+</head>
+<body>
+<h1><span th:text="${param.name}"> </span> 매장 예약하기</h1>
+	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+	<form method="post" onsubmit="return validateForm(event)">
+		<!-- 예약 시간 선택 -->
+
+		<div>
+			<button>예약하기</button>
+		</div>
+	</form>
+
+</body>
+</html>

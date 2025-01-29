@@ -8,4 +8,6 @@ import java.util.List;
 public interface StoreService{
 
 	List<StoreDto> list();
+
+	StoreDto detail(Long id);
 }
