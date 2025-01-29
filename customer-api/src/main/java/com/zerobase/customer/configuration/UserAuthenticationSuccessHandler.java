@@ -25,6 +25,6 @@ public class UserAuthenticationSuccessHandler extends  SimpleUrlAuthenticationSu
 	 	User userDetails = (User) authentication.getPrincipal();
 		request.getSession().setAttribute("customerId", customerService.getId(userDetails.getUsername()));  // 세션에 저장
 
-        response.sendRedirect("/customer");  // 홈 페이지로 리다이렉트
+        response.sendRedirect("/store/list");  // 홈 페이지로 리다이렉트
 	}
 }

@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>매장 목록</title>
+	<title>예약 목록</title>
     <style>
         .list table {
             width: 100%;
@@ -19,13 +19,14 @@
 
 </head>
 <body>
-<h1>매장 목록</h1>
+<h1>예약 목록</h1>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
 
     <div class="list">
         <table>
             <thead>
                 <tr>
+                    <th>매장명</th>
                     <th>예약한 날짜</th>
                     <th>예약 상태</th>
                     <th>방문할 날짜</th>
@@ -34,13 +35,19 @@
             </thead>
             <tbody>
                 <tr th:each="booking : ${bookingList}">
+                    <td>
+                        <a th:text="${booking.store.name}"
+                           th:href="${'/store/detail?id=' + booking.store.id}">
+                        </a>
+                    </td>
                     <td th:text="${booking.bookingDate}"></td>
-                    <td th:text="${booking.bookingStatus}"></td>
+                    <td th:text="${booking.bookingStatus.code}"></td>
                     <td th:text="${booking.visitDate}"></td>
-                    <td th:text="${booking.visitStatus}"></td>
+                    <td th:if="${booking.visitStatus}">방문 완료</td>
+                    <td th:if="${booking.visitStatus eq false}">방문 전</td>
                 </tr>
                 <tr th:if="${#lists.size(bookingList) < 1}">
-                    <td colspan="4">
+                    <td colspan="5">
                         <p class="nothing">내용이 없습니다.</p>
                     </td>
                 </tr>

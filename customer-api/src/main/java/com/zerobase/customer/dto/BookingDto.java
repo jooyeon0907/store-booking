@@ -1,6 +1,11 @@
 package com.zerobase.customer.dto;
 
 import com.zerobase.customer.entity.Booking;
+import com.zerobase.customer.entity.BookingStatus;
+import com.zerobase.customer.entity.Customer;
+import com.zerobase.owner.entity.Store;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +23,12 @@ public class BookingDto {
 
 	private Long id;
 	private LocalDateTime bookingDate;
-    private String bookingStatus;
+    private BookingStatus bookingStatus;
 	private LocalDateTime visitDate;
     private boolean visitStatus;
+
+	private Customer customer;
+	private Store store;
 
 	public static BookingDto of(Booking booking) {
 		return BookingDto.builder()
@@ -29,6 +37,8 @@ public class BookingDto {
 				.visitDate(booking.getVisitDate())
 				.bookingStatus(booking.getBookingStatus())
 				.visitDate(booking.getVisitDate())
+				.customer(booking.getCustomer())
+				.store(booking.getStore())
 				.build();
 	}
 

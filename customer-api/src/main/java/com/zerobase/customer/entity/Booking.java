@@ -12,6 +12,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+import static com.zerobase.customer.entity.BookingStatus.PENDING;
+
 @Entity
 @Getter
 @Setter
@@ -28,13 +30,16 @@ public class Booking {
 	private LocalDateTime bookingDate;
 
     private LocalDateTime visitDate; //방문할 날짜
-    private String bookingStatus; // 예약 상태 -> 예약 승인 전(0), 예약 승인(1), 예약 거부(2)
+
+	@Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus; // 예약 상태
 
 	private boolean visitStatus; // 방문 여부
 
     @PrePersist
     public void prePersist() {
         this.visitStatus = false;  // 저장되기 전 false로 설정
+		this.bookingStatus = PENDING;
     }
 
 	@ManyToOne
