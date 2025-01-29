@@ -26,24 +26,20 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>이름</th>
-                    <th>위치</th>
-                    <th>설명</th>
+                    <th>예약한 날짜</th>
+                    <th>예약 상태</th>
+                    <th>방문할 날짜</th>
+                    <th>방문 상태</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="store : ${storeList}">
-                    <td th:text="${store.id}"></td>
-                    <td>
-                        <a th:text="${store.name}"
-                           th:href="${'/store/detail?id=' + store.id}">
-                        </a>
-                    </td>
-                    <td th:text="${store.location}"></td>
-                    <td th:text="${store.description}"></td>
+                <tr th:each="booking : ${bookingList}">
+                    <td th:text="${booking.bookingDate}"></td>
+                    <td th:text="${booking.bookingStatus}"></td>
+                    <td th:text="${booking.visitDate}"></td>
+                    <td th:text="${booking.visitStatus}"></td>
                 </tr>
-                <tr th:if="${#lists.size(storeList) < 1}">
+                <tr th:if="${#lists.size(bookingList) < 1}">
                     <td colspan="4">
                         <p class="nothing">내용이 없습니다.</p>
                     </td>

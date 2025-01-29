@@ -1,5 +1,6 @@
 package com.zerobase.customer.service.impl;
 
+import com.zerobase.customer.dto.BookingDto;
 import com.zerobase.customer.entity.Booking;
 import com.zerobase.customer.model.BookingForm;
 import com.zerobase.customer.repository.BookingRepository;
@@ -53,6 +54,12 @@ public class StoreServiceImpl implements StoreService {
 		bookingRepository.save(booking);
 
 		return true;
+	}
+
+	@Override
+	public List<BookingDto> bookingList(Long customerId) {
+		List<Booking> bookings = bookingRepository.findByCustomerId(customerId);
+		return BookingDto.of(bookings);
 	}
 
 }

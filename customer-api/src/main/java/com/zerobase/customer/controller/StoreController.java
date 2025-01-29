@@ -5,6 +5,7 @@ import com.zerobase.customer.model.BookingForm;
 import com.zerobase.customer.service.StoreService;
 import com.zerobase.owner.dto.StoreDto;
 import com.zerobase.owner.repository.model.StoreParam;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,6 +69,15 @@ public class StoreController {
         model.addAttribute("message", "예약이 완료되었습니다!");
 		return "store/index";
 //		return "store/booking_list";
+	}
+
+	@GetMapping("/booking/list")
+	public String bookingList(Model model, HttpServletRequest request) {
+		Long customerId = (Long) request.getSession().getAttribute("customerId");
+		List<BookingDto> list = storeService.bookingList(customerId);
+
+		model.addAttribute("bookingList", list);
+		return "store/booking_list";
 	}
 
 

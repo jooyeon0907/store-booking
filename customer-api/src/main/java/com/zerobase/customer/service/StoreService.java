@@ -1,6 +1,7 @@
 package com.zerobase.customer.service;
 
 
+import com.zerobase.customer.dto.BookingDto;
 import com.zerobase.customer.model.BookingForm;
 import com.zerobase.owner.dto.StoreDto;
 
@@ -13,5 +14,7 @@ public interface StoreService{
 	StoreDto detail(Long id);
 
 	boolean createBooking(BookingForm parameter);
+
+	List<BookingDto> bookingList(Long customerId);
 
 }

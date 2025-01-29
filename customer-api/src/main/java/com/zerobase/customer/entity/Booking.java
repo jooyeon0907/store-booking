@@ -28,7 +28,7 @@ public class Booking {
 	private LocalDateTime bookingDate;
 
     private LocalDateTime visitDate; //방문할 날짜
-    private String bookingStatus; // 예약 상태 -> 예약 승인 전, 예약 승인, 예약 거부
+    private String bookingStatus; // 예약 상태 -> 예약 승인 전(0), 예약 승인(1), 예약 거부(2)
 
 	private boolean visitStatus; // 방문 여부
 
