@@ -1,5 +1,7 @@
 package com.zerobase.customer.controller;
 
+import com.zerobase.customer.dto.BookingDto;
+import com.zerobase.customer.model.BookingForm;
 import com.zerobase.customer.service.StoreService;
 import com.zerobase.owner.dto.StoreDto;
 import com.zerobase.owner.repository.model.StoreParam;
@@ -41,15 +43,24 @@ public class StoreController {
 	}
 
 	@GetMapping("/booking")
-	public String booking(Model model, StoreParam parameter) {
+	public String booking(Model model, BookingForm parameter) {
+		model.addAttribute("store", storeService.detail(parameter.getStoreId()));
 
 		return "store/booking";
 	}
 
 	@PostMapping("/booking")
-	public String bookingComplete(Model model, StoreParam parameter) {
+	public String bookingComplete(Model model, BookingForm parameter) {
+        boolean result = storeService.createBooking(parameter);
 
-		return null;
+		if (!result) {
+			model.addAttribute("store", storeService.detail(parameter.getStoreId()));
+        	model.addAttribute("errorMessage", "예약이 실패되었습니다.");
+			return "store/booking";
+		}
+        model.addAttribute("message", "예약이 완료되었습니다!");
+		return "store/index";
+//		return "store/booking_list";
 	}
 
 

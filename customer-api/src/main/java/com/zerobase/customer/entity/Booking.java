@@ -29,7 +29,13 @@ public class Booking {
 
     private LocalDateTime visitDate; //방문할 날짜
     private String bookingStatus; // 예약 상태 -> 예약 승인 전, 예약 승인, 예약 거부
-    private boolean visitStatus; // 방문 여부
+
+	private boolean visitStatus; // 방문 여부
+
+    @PrePersist
+    public void prePersist() {
+        this.visitStatus = false;  // 저장되기 전 false로 설정
+    }
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")

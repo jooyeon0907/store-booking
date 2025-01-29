@@ -1,6 +1,5 @@
 package com.zerobase.owner.dto;
 
-import com.zerobase.owner.entity.Owner;
 import com.zerobase.owner.entity.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

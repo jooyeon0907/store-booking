@@ -1,5 +1,9 @@
 package com.zerobase.customer.service.impl;
 
+import com.zerobase.customer.entity.Booking;
+import com.zerobase.customer.model.BookingForm;
+import com.zerobase.customer.repository.BookingRepository;
+import com.zerobase.customer.repository.CustomerRepository;
 import com.zerobase.customer.service.StoreService;
 import com.zerobase.owner.dto.StoreDto;
 import com.zerobase.owner.entity.Store;
@@ -14,7 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
 
+	private final CustomerRepository customerRepository;
 	private final StoreRepository storeRepository;
+	private final BookingRepository bookingRepository;
 
 	private Sort getSortBySortValueDesc() {
 		return Sort.by(Sort.Direction.DESC, "sortValue");
@@ -30,4 +36,17 @@ public class StoreServiceImpl implements StoreService {
 	public StoreDto detail(Long id) {
 		return StoreDto.of(storeRepository.findById(id).get());
 	}
+
+	@Override
+	public boolean createBooking(BookingForm parameter) {
+		Booking booking = Booking.builder()
+				.visitDate(parameter.getVisitDate())
+				.customer(customerRepository.findById(parameter.getCustomerId()).get())
+				.store(storeRepository.findById(parameter.getStoreId()).get())
+				.build();
+		bookingRepository.save(booking);
+
+		return true;
+	}
+
 }

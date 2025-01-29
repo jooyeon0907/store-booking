@@ -3,18 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>매장 예약</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            // 현재 날짜와 시간을 'YYYY-MM-DDThh:mm' 형식으로 가져오기
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = ('0' + (now.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 +1
+            var day = ('0' + now.getDate()).slice(-2);
+            var hours = ('0' + now.getHours()).slice(-2);
+            var minutes = ('0' + now.getMinutes()).slice(-2);
+
+            // 'YYYY-MM-DDThh:mm' 형식으로 현재 시간 생성
+            var currentDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+
+            // 현재 시간보다 이전 시간을 비활성화
+            document.getElementById('visitDate').setAttribute('min', currentDateTime);
+        });
+    </script>
 </head>
 <body>
-<h1><span th:text="${param.name}"> </span> 매장 예약하기</h1>
+    <h1>매장 예약하기</h1>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
 
-	<form method="post" onsubmit="return validateForm(event)">
-		<!-- 예약 시간 선택 -->
+    <h3><span th:text="${store.name}"> </span> 매장 예약</h3>
 
-		<div>
-			<button>예약하기</button>
-		</div>
-	</form>
+	<div th:if="${errorMessage}" style="color: red;">
+		<p th:text="${errorMessage}"></p>
+	</div>
+
+    <div>
+        <form th:action="@{/store/booking}" method="post">
+            <input th:value="${customerId}" type="hidden" name="customerId"/>
+            <input th:value="${store.id}" type="hidden" name="storeId"/>
+            <label for="visitDate">방문 날짜 및 시간:</label>
+            <input type="datetime-local" id="visitDate" name="visitDate" required>
+
+            <button type="submit">예약하기</button>
+        </form>
+    </div>
 
 </body>
 </html>

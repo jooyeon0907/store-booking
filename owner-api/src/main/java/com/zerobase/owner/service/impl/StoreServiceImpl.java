@@ -35,8 +35,6 @@ public class StoreServiceImpl implements StoreService {
 				.ifPresent(store -> {
 					throw new RuntimeException("이미 매장을 등록하였습니다.");
 				});
-		Store s = storeRepository.findByName(parameter.getName()).orElse(new Store());
-		System.out.println(">> " + s);
 		storeRepository.findByName(parameter.getName())
 				.ifPresent(store -> {
 					throw new RuntimeException("이미 등록되어 있는 매장명입니다.");
