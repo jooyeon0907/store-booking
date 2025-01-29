@@ -51,11 +51,18 @@ public class StoreController {
 
 	@PostMapping("/booking")
 	public String bookingComplete(Model model, BookingForm parameter) {
-        boolean result = storeService.createBooking(parameter);
+        boolean result = false;
+
+		String errorMessage = "예약이 실패되었습니다.";
+		try{
+			result = storeService.createBooking(parameter);
+		}catch (Exception e){
+		  errorMessage = e.getMessage();
+		}
 
 		if (!result) {
 			model.addAttribute("store", storeService.detail(parameter.getStoreId()));
-        	model.addAttribute("errorMessage", "예약이 실패되었습니다.");
+        	model.addAttribute("errorMessage", errorMessage);
 			return "store/booking";
 		}
         model.addAttribute("message", "예약이 완료되었습니다!");

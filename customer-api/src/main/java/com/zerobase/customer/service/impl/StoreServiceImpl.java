@@ -39,6 +39,12 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public boolean createBooking(BookingForm parameter) {
+		bookingRepository.findByStoreIdAndVisitDate(parameter.getStoreId(), parameter.getVisitDate())
+				.ifPresent(store -> {
+					throw new RuntimeException("해당 시간은 이미 예약되어 있습니다.");
+				});
+
+
 		Booking booking = Booking.builder()
 				.visitDate(parameter.getVisitDate())
 				.customer(customerRepository.findById(parameter.getCustomerId()).get())
