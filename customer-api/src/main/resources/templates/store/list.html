@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>매장 목록</title>
+    <style>
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .list table th, .list table td {
+            border: solid 1px #000;
+        }
+        p.nothing {
+            text-align: center;
+            padding: 100px;
+        }
+    </style>
+</head>
+<body>
+<h1>매장 목록</h1>
+	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+
+    <div class="list">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>이름</th>
+                    <th>위치</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="store : ${storeList}">
+                    <td th:text="${store.id}">
+                        <input th:value="${store.id}" type="hidden" name="id"/>
+                        <p th:text="${store.id}"></p>
+                    </td>
+                    <td th:text="${store.name}">
+                    </td>
+                    <td th:text="${store.location}"></td>
+                    <td th:text="${store.description}"></td>
+                </tr>
+                <tr th:if="${#lists.size(storeList) < 1}">
+                    <td colspan="3">
+                        <p class="nothing">내용이 없습니다.</p>
+                    </td>
+                </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>

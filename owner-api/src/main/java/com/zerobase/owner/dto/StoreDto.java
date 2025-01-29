@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -26,4 +29,16 @@ public class StoreDto {
                 .description(store.getDescription())
                 .build();
     }
+
+    public static List<StoreDto> of(List<Store> stores) { // use customer-api
+		if (stores != null) {
+			List<StoreDto> storeList = new ArrayList<>();
+			for(Store s : stores) {
+				storeList.add(of(s));
+			}
+			return storeList;
+		}
+
+		return null;
+	}
 }

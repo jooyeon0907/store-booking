@@ -2,7 +2,7 @@ package com.zerobase.owner.service.impl;
 
 import com.zerobase.owner.dto.StoreDto;
 import com.zerobase.owner.entity.Store;
-import com.zerobase.owner.model.StoreInput;
+import com.zerobase.owner.repository.model.StoreInput;
 import com.zerobase.owner.repository.OwnerRepository;
 import com.zerobase.owner.repository.StoreRepository;
 import com.zerobase.owner.service.StoreService;
@@ -10,7 +10,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 

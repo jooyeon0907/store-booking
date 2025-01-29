@@ -1,4 +1,4 @@
-package com.zerobase.owner.model;
+package com.zerobase.owner.repository.model;
 
 import lombok.Data;
 import lombok.ToString;
