@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
@@ -16,6 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
+
+    private final CustomerService customerService;
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
@@ -27,6 +30,15 @@ public class SecurityConfiguration {
 		return new UserAuthenticationFailureHandler();
 	}
 
+    @Bean
+    UserAuthenticationSuccessHandler getSuccessHandler() {
+		return new UserAuthenticationSuccessHandler(customerService);
+	}
+
+	@Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new UserLogoutSuccessHandler();
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,7 +50,9 @@ public class SecurityConfiguration {
             authorizeRequests
             .requestMatchers("/",
                     "/customer/register",
-                    "/customer/login/**"
+                    "/customer/login/**",
+                    "/store/list",
+                    "/store/detail"
                     )
             .permitAll() // 모든 페이지에 접근 권한 허용
             .anyRequest()
@@ -50,8 +64,8 @@ public class SecurityConfiguration {
             formLogin
             .loginPage("/customer/login")
             .usernameParameter("name")
+            .successHandler(getSuccessHandler())
             .failureHandler(getFailureHandler())
-            .defaultSuccessUrl("/customer", true)
             .permitAll()
         );
 
@@ -59,7 +73,7 @@ public class SecurityConfiguration {
         http.logout(logout ->
             logout
             .logoutRequestMatcher(new AntPathRequestMatcher("/customer/logout"))
-            .logoutSuccessUrl("/customer")
+			.logoutSuccessHandler(logoutSuccessHandler())
             .invalidateHttpSession(true)
         );
 

@@ -42,6 +42,11 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public Long getId(String name) {
+		return customerRepository.findByName(name).get().getId();
+	}
+
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Customer> optionalCustomer = customerRepository.findByName(username);
 		if (!optionalCustomer.isPresent()) {

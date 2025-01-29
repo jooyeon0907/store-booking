@@ -6,4 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface CustomerService extends UserDetailsService {
 
 	boolean register(SignInForm parameter);
+
+	Long getId(String name);
 }

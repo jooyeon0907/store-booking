@@ -1,4 +1,4 @@
-package com.zerobase.owner.controller;
+package com.zerobase.owner.configuration;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
