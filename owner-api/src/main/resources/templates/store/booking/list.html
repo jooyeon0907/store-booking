@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>예약 목록</title>
+    <style>
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .list table th, .list table td {
+            border: solid 1px #000;
+        }
+        p.nothing {
+            text-align: center;
+            padding: 100px;
+        }
+    </style>
+
+</head>
+<body>
+<h1>예약 목록</h1>
+	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+    <div class="list">
+        <table>
+            <thead>
+                <tr>
+                    <th>고객명</th>
+                    <th>고객 전화번호</th>
+                    <th>방문할 날짜</th>
+                    <th>방문 여부</th>
+                    <th>예약한 날짜</th>
+                    <th>예약 상태</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="booking : ${bookingList}">
+                    <td th:text="${booking.customer.name}"></td>
+                    <td th:text="${booking.customer.phone}"></td>
+                    <td th:text="${booking.visitDate}"></td>
+                    <td th:if="${booking.visitStatus}">방문 완료</td>
+                    <td th:if="${booking.visitStatus eq false}">방문 전</td>
+                    <td th:text="${booking.bookingDate}"></td>
+                    <td th:text="${booking.bookingStatus.code}"></td>
+                </tr>
+
+                <tr th:if="${#lists.size(bookingList) < 1}">
+                    <td colspan="6">
+                        <p class="nothing">등록된 매장이 없습니다. 매장을 등록해주세요.</p>
+                    </td>
+                </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>

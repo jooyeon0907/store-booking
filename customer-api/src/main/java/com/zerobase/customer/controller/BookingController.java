@@ -1,6 +1,6 @@
 package com.zerobase.customer.controller;
 
-import com.zerobase.customer.dto.BookingDto;
+import com.zerobase.domain.dto.common.BookingDto;
 import com.zerobase.customer.model.BookingForm;
 import com.zerobase.customer.service.BookingService;
 import com.zerobase.customer.service.StoreService;

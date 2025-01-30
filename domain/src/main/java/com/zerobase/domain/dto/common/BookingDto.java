@@ -1,4 +1,4 @@
-package com.zerobase.customer.dto;
+package com.zerobase.domain.dto.common;
 
 import com.zerobase.domain.entity.common.Booking;
 import com.zerobase.domain.entity.common.BookingStatus;
