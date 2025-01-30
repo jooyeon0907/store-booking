@@ -1,4 +1,4 @@
-package com.zerobase.customer.entity;
+package com.zerobase.domain.entity.common;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

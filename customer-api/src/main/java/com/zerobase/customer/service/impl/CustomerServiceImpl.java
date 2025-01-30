@@ -1,9 +1,9 @@
 package com.zerobase.customer.service.impl;
 
-import com.zerobase.customer.entity.Customer;
 import com.zerobase.customer.model.SignInForm;
 import com.zerobase.customer.repository.CustomerRepository;
 import com.zerobase.customer.service.CustomerService;
+import com.zerobase.domain.entity.customer.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

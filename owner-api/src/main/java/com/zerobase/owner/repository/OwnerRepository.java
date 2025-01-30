@@ -1,6 +1,6 @@
 package com.zerobase.owner.repository;
 
-import com.zerobase.owner.entity.Owner;
+import com.zerobase.domain.entity.owner.Owner;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

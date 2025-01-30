@@ -1,8 +1,8 @@
-package com.zerobase.owner.entity;
+package com.zerobase.domain.entity.common;
 
+import com.zerobase.domain.entity.owner.Owner;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 

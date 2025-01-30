@@ -1,6 +1,6 @@
 package com.zerobase.customer.repository;
 
-import com.zerobase.customer.entity.Booking;
+import com.zerobase.domain.entity.common.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

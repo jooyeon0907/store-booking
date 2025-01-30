@@ -1,12 +1,12 @@
 package com.zerobase.customer.service.impl;
 
 import com.zerobase.customer.dto.BookingDto;
-import com.zerobase.customer.entity.Booking;
 import com.zerobase.customer.model.BookingForm;
 import com.zerobase.customer.repository.BookingRepository;
 import com.zerobase.customer.repository.CustomerRepository;
+import com.zerobase.customer.repository.StoreRepository;
 import com.zerobase.customer.service.BookingService;
-import com.zerobase.owner.repository.StoreRepository;
+import com.zerobase.domain.entity.common.Booking;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

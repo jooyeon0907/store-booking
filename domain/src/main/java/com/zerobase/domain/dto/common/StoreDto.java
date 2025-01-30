@@ -1,4 +1,4 @@
-package com.zerobase.owner.dto;
+package com.zerobase.domain.dto.common;
 
 import com.zerobase.domain.entity.common.Store;
 import lombok.AllArgsConstructor;

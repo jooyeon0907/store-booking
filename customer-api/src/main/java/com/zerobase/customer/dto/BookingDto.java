@@ -1,11 +1,9 @@
 package com.zerobase.customer.dto;
 
-import com.zerobase.customer.entity.Booking;
-import com.zerobase.customer.entity.BookingStatus;
-import com.zerobase.customer.entity.Customer;
-import com.zerobase.owner.entity.Store;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.zerobase.domain.entity.common.Booking;
+import com.zerobase.domain.entity.common.BookingStatus;
+import com.zerobase.domain.entity.common.Store;
+import com.zerobase.domain.entity.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,8 @@
 package com.zerobase.customer.controller;
 
 import com.zerobase.customer.service.StoreService;
-import com.zerobase.owner.dto.StoreDto;
-import com.zerobase.owner.repository.model.StoreParam;
+import com.zerobase.domain.dto.common.StoreDto;
+import com.zerobase.domain.model.common.StoreParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

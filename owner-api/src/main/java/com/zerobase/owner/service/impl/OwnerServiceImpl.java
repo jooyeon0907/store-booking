@@ -1,6 +1,6 @@
 package com.zerobase.owner.service.impl;
 
-import com.zerobase.owner.entity.Owner;
+import com.zerobase.domain.entity.owner.Owner;
 import com.zerobase.owner.repository.model.SignInForm;
 import com.zerobase.owner.repository.OwnerRepository;
 import com.zerobase.owner.service.OwnerService;

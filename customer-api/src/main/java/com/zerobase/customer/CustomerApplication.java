@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EnableJpaRepositories(basePackages = { "com.zerobase.owner.repository", "com.zerobase.customer.repository" })
-@EntityScan(basePackages = { "com.zerobase.owner.entity", "com.zerobase.customer.entity" })
+@EnableJpaRepositories(basePackages = { "com.zerobase.customer.repository", "com.zerobase.domain.repository.common" })
+@EntityScan(basePackages = {"com.zerobase.customer.entity", "com.zerobase.domain.entity" })
 public class CustomerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CustomerApplication.class, args);

@@ -1,7 +1,7 @@
 package com.zerobase.owner.service.impl;
 
+import com.zerobase.domain.entity.common.Store;
 import com.zerobase.owner.dto.StoreDto;
-import com.zerobase.owner.entity.Store;
 import com.zerobase.owner.repository.model.StoreInput;
 import com.zerobase.owner.repository.OwnerRepository;
 import com.zerobase.owner.repository.StoreRepository;

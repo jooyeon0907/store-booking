@@ -3,7 +3,7 @@ package com.zerobase.customer.service;
 
 import com.zerobase.customer.dto.BookingDto;
 import com.zerobase.customer.model.BookingForm;
-import com.zerobase.owner.dto.StoreDto;
+import com.zerobase.domain.dto.common.StoreDto;
 
 import java.util.List;
 

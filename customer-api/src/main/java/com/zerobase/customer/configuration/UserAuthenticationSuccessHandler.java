@@ -2,7 +2,6 @@ package com.zerobase.customer.configuration;
 
 
 import com.zerobase.customer.service.CustomerService;
-import com.zerobase.owner.service.OwnerService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,6 +1,6 @@
-package com.zerobase.customer.entity;
+package com.zerobase.domain.entity.common;
 
-import com.zerobase.owner.entity.Store;
+import com.zerobase.domain.entity.customer.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-import static com.zerobase.customer.entity.BookingStatus.PENDING;
+import static com.zerobase.domain.entity.common.BookingStatus.PENDING;
+
 
 @Entity
 @Getter
@@ -32,7 +33,7 @@ public class Booking {
     private LocalDateTime visitDate; //방문할 날짜
 
 	@Enumerated(EnumType.STRING)
-    private BookingStatus bookingStatus; // 예약 상태
+    private BookingStatus bookingStatus; // 예약 상태 -> 예약 승인,예약 승인, 예약 거부
 
 	private boolean visitStatus; // 방문 여부
 
