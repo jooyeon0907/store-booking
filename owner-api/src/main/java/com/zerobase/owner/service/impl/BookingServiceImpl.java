@@ -3,6 +3,7 @@ package com.zerobase.owner.service.impl;
 import com.zerobase.domain.dto.common.BookingDto;
 import com.zerobase.domain.entity.common.Booking;
 import com.zerobase.domain.entity.common.Store;
+import com.zerobase.owner.model.BookingForm;
 import com.zerobase.owner.repository.BookingRepository;
 import com.zerobase.owner.repository.StoreRepository;
 import com.zerobase.owner.service.BookingService;
@@ -30,4 +31,15 @@ public class BookingServiceImpl implements BookingService {
 		List<Booking> bookings = bookingRepository.findByStoreId(optionalStore.get().getId());
 		return BookingDto.of(bookings);
 	}
+
+	@Override
+	public boolean updateBookingStatus(BookingForm parameter) {
+		Booking booking = bookingRepository.findById(parameter.getId()).get();
+
+		booking.setBookingStatus(parameter.getBookingStatus());
+		bookingRepository.save(booking);
+
+		return true;
+	}
+
 }

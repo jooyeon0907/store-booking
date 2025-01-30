@@ -42,8 +42,18 @@
                     <td th:if="${booking.visitStatus}">방문 완료</td>
                     <td th:if="${booking.visitStatus eq false}">방문 전</td>
                     <td th:text="${booking.bookingDate}"></td>
-                    <td th:text="${booking.bookingStatus.code}"></td>
-                </tr>
+
+                    <td>
+                        <span th:if="${booking.bookingStatus.name() == 'PENDING'}">
+                            <form th:action="@{/store/booking/status/update}" method="post">
+                                <input type="hidden" name="id" th:value="${booking.id}">
+                                <button type="submit" name="bookingStatus" value="APPROVED">승인</button>
+                                <button type="submit" name="bookingStatus" value="REJECTED">거절</button>
+                            </form>
+                        </span>
+                        <span th:unless="${booking.bookingStatus.name() == 'PENDING'}" th:text="${booking.bookingStatus.code}"></span>
+                    </td>
+
 
                 <tr th:if="${#lists.size(bookingList) < 1}">
                     <td colspan="6">
