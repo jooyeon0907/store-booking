@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="fragment-body-menu" style="display: flex;">
+		<a th:if="${session.ownerId != null}" href="/kiosk/home">홈</a>
+		<form th:if="${session.ownerId != null}" th:action="@{/kiosk/logout}" method="post">
+			<button type="submit">로그아웃</button>
+		</form>
+	</div>
+	<hr/>
+</body>
+</html>
