@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 작성</title>
+</head>
+<body>
+    <h1><span th:text="${storeName}"></span> 매장 리뷰 작성</h1>
+	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+	<div th:if="${errorMessage}" style="color: red;">
+		<p th:text="${errorMessage}"></p>
+	</div>
+
+	<form method="post" >
+        <label>점수:</label><br>
+        <label for="score1">
+            <input type="radio" id="score1" name="score" value="1" required/> 1
+        </label>
+        <label for="score2">
+            <input type="radio" id="score2" name="score" value="2" required/> 2
+        </label>
+        <label for="score3">
+            <input type="radio" id="score3" name="score" value="3" required/> 3
+        </label>
+        <label for="score4">
+            <input type="radio" id="score4" name="score" value="4" required/> 4
+        </label>
+        <label for="score5">
+            <input type="radio" id="score5" name="score" value="5" required/> 5
+        </label>
+        <br><br>
+
+        <!-- 리뷰 내용 -->
+        <label for="content">리뷰 내용:</label><br>
+        <textarea id="content" name="content" rows="4" cols="50" required></textarea>
+        <br><br>
+
+		<div>
+			<button type="submit">리뷰 작성 하기</button>
+		</div>
+	</form>
+
+</body>
+</html>

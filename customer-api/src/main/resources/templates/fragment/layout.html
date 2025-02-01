@@ -12,6 +12,8 @@
 
 			<a th:if="${customerId != null}" href="/store/booking/list">예약 목록</a>
 			<span th:if="${customerId != null}">|</span>
+			<a th:if="${customerId != null}" href="/customer/review/list">리뷰 목록</a>
+			<span th:if="${customerId != null}">|</span>
 			<a th:if="${customerId != null}" href="/customer/logout">로그아웃</a>
 
 			<a th:if="${customerId == null}" href="/customer/login">로그인</a>

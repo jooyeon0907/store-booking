@@ -41,7 +41,18 @@
                         </a>
                     </td>
                     <td th:text="${booking.visitDate}"></td>
-                    <td th:if="${booking.visitStatus}">방문 완료</td>
+                    <td th:if="${booking.visitStatus}">
+                        방문 완료
+                        <a th:if="${booking.review == null}"
+                           th:href="${'/customer/review/write?bookingId=' + booking.id + '&storeName=' + booking.store.name }">
+                            리뷰 작성
+                        </a>
+
+                        <a th:if="${booking.review != null}"
+                           th:href="${'/customer/review/detail?id=' + booking.review.id }">
+                            리뷰 보기
+                        </a>
+                    </td>
                     <td th:if="${booking.visitStatus eq false}">방문 전</td>
                     <td th:text="${booking.bookingDate}"></td>
                     <td th:text="${booking.bookingStatus.code}"></td>

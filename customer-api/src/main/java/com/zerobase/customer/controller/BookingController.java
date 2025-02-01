@@ -27,6 +27,16 @@ public class BookingController {
 		return "store/booking/index";
 	}
 
+
+	@GetMapping("/list")
+	public String list(Model model, HttpServletRequest request) {
+		Long customerId = (Long) request.getSession().getAttribute("customerId");
+		List<BookingDto> list = bookingService.list(customerId);
+
+		model.addAttribute("bookingList", list);
+		return "store/booking/list";
+	}
+
 	@GetMapping("/create")
 	public String booking(Model model, BookingForm parameter) {
 		model.addAttribute("store", storeService.detail(parameter.getStoreId()));
@@ -55,17 +65,5 @@ public class BookingController {
 		model.addAttribute("store", storeService.detail(parameter.getStoreId()));
 		return "store/detail";
 	}
-
-	@GetMapping("/list")
-	public String list(Model model, HttpServletRequest request) {
-		Long customerId = (Long) request.getSession().getAttribute("customerId");
-		List<BookingDto> list = bookingService.list(customerId);
-
-		model.addAttribute("bookingList", list);
-		return "store/booking/list";
-	}
-
-
-
 
 }

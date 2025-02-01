@@ -2,6 +2,7 @@ package com.zerobase.domain.dto.common;
 
 import com.zerobase.domain.entity.common.Booking;
 import com.zerobase.domain.entity.common.BookingStatus;
+import com.zerobase.domain.entity.common.Review;
 import com.zerobase.domain.entity.common.Store;
 import com.zerobase.domain.entity.customer.Customer;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class BookingDto {
 
 	private Customer customer;
 	private Store store;
+	private Review review;
 
 	public static BookingDto of(Booking booking) {
 		return BookingDto.builder()
@@ -37,6 +39,7 @@ public class BookingDto {
 				.visitStatus(booking.isVisitStatus())
 				.customer(booking.getCustomer())
 				.store(booking.getStore())
+				.review(booking.getReview())
 				.build();
 	}
 
