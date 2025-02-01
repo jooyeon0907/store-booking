@@ -34,7 +34,7 @@ public class Review {
 	private LocalDateTime writeDate;
 
 	@OneToOne
-	@JoinColumn(name = "booking_id", nullable = false)
+	@JoinColumn(name = "booking_id")
 	private Booking booking;
 
 }

@@ -1,26 +1,28 @@
 package com.zerobase.customer.service.impl;
 
 import com.zerobase.customer.repository.BookingRepository;
-import com.zerobase.customer.repository.CustomerRepository;
 import com.zerobase.customer.repository.ReviewRepository;
-import com.zerobase.customer.repository.StoreRepository;
 import com.zerobase.customer.service.ReviewService;
-import com.zerobase.domain.dto.common.BookingDto;
 import com.zerobase.domain.dto.common.ReviewDto;
 import com.zerobase.domain.entity.common.Booking;
 import com.zerobase.domain.entity.common.Review;
+import com.zerobase.domain.entity.common.Store;
 import com.zerobase.domain.model.common.ReviewParam;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
+	@PersistenceContext
+    private EntityManager entityManager;
 
-	private final CustomerRepository customerRepository;
-	private final StoreRepository storeRepository;
+
 	private final BookingRepository bookingRepository;
 	private final ReviewRepository reviewRepository;
 
@@ -52,4 +54,30 @@ public class ReviewServiceImpl implements ReviewService {
 				.orElseThrow(() -> new RuntimeException("등록된 리뷰가 없습니다."));
 		return ReviewDto.of(review);
 	}
+
+	@Override
+	public boolean update(ReviewParam parameter) {
+		Optional<Review> optionalReview = reviewRepository.findById(parameter.getId());
+		if (optionalReview.isPresent()) {
+			Review review = optionalReview.get();
+			review.setScore(parameter.getScore());
+			review.setContent(parameter.getContent());
+			reviewRepository.save(review);
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean del(Long id) {
+		Review review = reviewRepository.findById(id).orElseThrow();
+		review.setBooking(null);
+		reviewRepository.flush();
+		entityManager.clear();
+		reviewRepository.delete(review);
+
+		return true;
+	}
+
 }

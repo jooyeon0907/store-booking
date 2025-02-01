@@ -47,11 +47,12 @@
         </table>
 
         <div class="action-buttons">
+            <a th:href="@{/store/edit}" class="edit-button">수정하기</a>
+
             <form th:action="@{/store/delete}" method="post" style="display: inline;">
                 <input th:value="${store.id}" type="hidden" name="id"/>
                 <button type="submit" class="delete-button">삭제하기</button>
             </form>
-            <a th:href="@{/store/edit}" class="edit-button">수정하기</a>
         </div>
     </div>
     <div th:if="${store == null}">

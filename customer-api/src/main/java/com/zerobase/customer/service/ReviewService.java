@@ -13,4 +13,8 @@ public interface ReviewService {
 	List<ReviewDto> list(Long customerId);
 
 	ReviewDto getReview(Long id);
+
+	boolean update(ReviewParam parameter);
+
+	boolean del(Long id);
 }

@@ -51,7 +51,7 @@ public class Booking {
 	@JoinColumn(name = "store_id")
 	private Store store;
 
-	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private Review review;
 
 }

@@ -57,7 +57,18 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="action-buttons">
+            <a th:href="${'/customer/review/edit?id=' + review.id}">수정하기</a>
+
+            <form th:action="@{/customer/review/delete}" method="post" style="display: inline;">
+                <input th:value="${review.id}" type="hidden" name="id"/>
+                <button type="submit">삭제하기</button>
+            </form>
+        </div>
+
     </div>
+
 
 </body>
 </html>
