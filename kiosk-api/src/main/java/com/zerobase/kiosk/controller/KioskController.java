@@ -1,6 +1,10 @@
 package com.zerobase.kiosk.controller;
 
+import com.zerobase.domain.dto.common.BookingDto;
+import com.zerobase.domain.dto.common.StoreDto;
+import com.zerobase.domain.entity.customer.Customer;
 import com.zerobase.domain.model.common.StoreParam;
+import com.zerobase.kiosk.model.BookingForm;
 import com.zerobase.kiosk.model.SignInForm;
 import com.zerobase.kiosk.service.KioskService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +37,7 @@ public class KioskController {
 	public String loginSubmit(Model model, HttpServletRequest request, HttpSession session, SignInForm parameter) {
 
 		Long ownerId = -1L;
-		Long storeId = -1L;
+		StoreDto store = null;
 
 		try{
 			ownerId = kioskService.login(parameter);
@@ -43,33 +47,60 @@ public class KioskController {
 		}
 
 		try{
-			storeId = kioskService.getStoreId(ownerId);
+			store = kioskService.getStore(ownerId);
 		}catch (Exception e){
 			model.addAttribute("errorMessage", e.getMessage());
 			return "kiosk/login";
 		}
 
 		session.setAttribute("ownerId", ownerId);
-		session.setAttribute("storeId", storeId);
+		session.setAttribute("storeId", store.getId());
+		session.setAttribute("storeName", store.getName());
 
-		System.out.println("세션 저장 - ownerId: " + session.getAttribute("ownerId"));
-		System.out.println("세션 저장 - storeId: " + session.getAttribute("storeId"));
 		return "redirect:/kiosk/home";
 	}
 
 	@PostMapping("/logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute("ownerId");
-		session.removeAttribute("storeId");
-
+		session.invalidate(); // 세션 전체 무효화
 		return "redirect:/kiosk/login";
 	}
 
 	@GetMapping("/home")
 	public String home(Model model, HttpSession session, StoreParam parameter) {
     	Long ownerId = (Long) session.getAttribute("ownerId");
+
 		return "kiosk/home";
 	}
 
+	@PostMapping("/booking/info")
+	public String bookingInfo(Model model, BookingForm parameter) {
+
+		Long customerId = -1L;
+		try{
+			customerId = kioskService.getCustomerId(parameter.getPhone());
+		}catch (Exception e){
+			model.addAttribute("errorMessage", e.getMessage());
+			return "redirect:/kiosk/home";
+		}
+
+		BookingDto booking = null;
+		try{
+			booking = kioskService.getBooking(customerId, parameter);
+		}catch (Exception e){
+			model.addAttribute("errorMessage", e.getMessage());
+			return "/kiosk/home"; // 위 공통 로직 합치기 , String errorMessage
+		}
+
+		model.addAttribute("booking", booking);
+
+		return "kiosk/booking/info";
+	}
 
 }
+
+/*
+home 에서 전화번호 입력 폼 받고 -> post /booking/info 요청
+성공 시 예약내역조회는 get /booking/info
+
+ */

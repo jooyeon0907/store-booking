@@ -5,8 +5,21 @@
 	<title>KIOSK</title>
 </head>
 <body>
-<h1>매장 이름</h1>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+	<h1><span th:text="${session.storeName}"></span> 매장에 오신 것을 환영합니다!</h1>
+	<h2>예약 내역 조회</h2>
+
+	<div th:if="${errorMessage}" style="color: red;">
+		<p th:text="${errorMessage}"></p>
+	</div>
+
+	<form th:action="@{/kiosk/booking/info}" method="post">
+		<input th:value="${session.storeId}" type="hidden" name="storeId"/>
+		<input type="tel" name="phone" placeholder="전화번호 입력" required/>
+
+		<button type="submit">예약 조회</button>
+	</form>
 </body>
 
 
