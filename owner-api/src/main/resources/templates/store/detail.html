@@ -17,6 +17,17 @@
         }
     </style>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('form[name=deleteForm]').on('submit', function() {
+                if(!confirm('매장을 삭제하시겠습니까?')) {
+                    return false;
+                }
+            });
+
+        });
+    </script>
 </head>
 <body>
     <h1>매장 관리</h1>
@@ -49,7 +60,7 @@
         <div class="action-buttons">
             <a th:href="@{/store/edit}" class="edit-button">수정하기</a>
 
-            <form th:action="@{/store/delete}" method="post" style="display: inline;">
+            <form name="deleteForm"  th:action="@{/store/delete}" method="post" style="display: inline;">
                 <input th:value="${store.id}" type="hidden" name="id"/>
                 <button type="submit" class="delete-button">삭제하기</button>
             </form>

@@ -8,4 +8,6 @@ public interface ReviewService {
 	List<ReviewDto> list(Long ownerId);
 
 	ReviewDto getReview(Long id);
+
+	boolean del(Long id);
 }

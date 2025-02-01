@@ -2,14 +2,13 @@ package com.zerobase.owner.controller;
 
 import com.zerobase.domain.dto.common.ReviewDto;
 import com.zerobase.domain.model.common.ReviewParam;
-import com.zerobase.owner.service.BookingService;
 import com.zerobase.owner.service.ReviewService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -44,5 +43,19 @@ public class ReviewController {
 		return "store/review/detail";
 	}
 
+	@PostMapping("/delete")
+	public String delete(ReviewParam parameter) {
+		boolean result = false;
+
+		result = reviewService.del(parameter.getId());
+//		try{
+//			result = reviewService.del(parameter.getId());
+//		}catch (Exception e){
+//			System.out.println("e : " + e.getMessage());
+//
+//		}
+
+		return "redirect:/store/review/list";
+	}
 
 }

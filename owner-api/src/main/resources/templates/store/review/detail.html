@@ -17,12 +17,24 @@
         }
     </style>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('form[name=deleteForm]').on('submit', function() {
+                if(!confirm('리뷰를 삭제하시겠습니까?')) {
+                    return false;
+                }
+            });
+
+        });
+    </script>
 </head>
 <body>
     <h1>리뷰 상세</h1>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
 
     <div class="detail" th:if="${review != null}">
+
         <table>
             <tbody>
                 <tr>
@@ -57,6 +69,14 @@
                 </tr>
             </tbody>
         </table>
+
+
+        <div>
+            <form name="deleteForm" th:action="@{/store/review/delete}" method="post" style="display: inline;">
+                <input th:value="${review.id}" type="hidden" name="id"/>
+                <button type="submit">삭제하기</button>
+            </form>
+        </div>
     </div>
 
 </body>
