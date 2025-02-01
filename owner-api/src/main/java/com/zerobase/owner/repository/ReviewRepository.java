@@ -1,5 +1,4 @@
-
-package com.zerobase.customer.repository;
+package com.zerobase.owner.repository;
 
 import com.zerobase.domain.entity.common.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-
-    @Query("SELECT r FROM Review r WHERE r.booking.customer.id = :customerId")
-    List<Review> findByCustomerId(@Param("customerId") Long customerId);
-
+    @Query("SELECT r FROM Review r WHERE r.booking.store.id = :storeId")
+	List<Review> findByStoreId(@Param("storeId") Long storeId);
 }

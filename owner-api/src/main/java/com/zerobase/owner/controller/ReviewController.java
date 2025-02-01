@@ -1,0 +1,48 @@
+package com.zerobase.owner.controller;
+
+import com.zerobase.domain.dto.common.ReviewDto;
+import com.zerobase.domain.model.common.ReviewParam;
+import com.zerobase.owner.service.BookingService;
+import com.zerobase.owner.service.ReviewService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/store/review")
+@RequiredArgsConstructor
+public class ReviewController {
+
+	private final ReviewService reviewService;
+
+	@GetMapping("/list")
+	public String list(Model model, HttpSession session, ReviewParam parameter) {
+		List<ReviewDto> list = reviewService.list((Long) session.getAttribute("ownerId"));
+		model.addAttribute("reviewList", list);
+
+		return "store/review/list";
+	}
+
+	@GetMapping("/detail")
+	public String detail(Model model, ReviewParam parameter) {
+		ReviewDto review = null;
+
+		try{
+			review = reviewService.getReview(parameter.getId());
+		}catch (Exception e){
+
+		}
+
+		model.addAttribute("review", review);
+
+		return "store/review/detail";
+	}
+
+
+}

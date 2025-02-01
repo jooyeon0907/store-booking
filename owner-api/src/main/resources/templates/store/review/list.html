@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>리뷰 목록</title>
+    <style>
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .list table th, .list table td {
+            border: solid 1px #000;
+        }
+        p.nothing {
+            text-align: center;
+            padding: 100px;
+        }
+    </style>
+
+</head>
+<body>
+<h1>리뷰 목록</h1>
+	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
+
+    <div class="list">
+        <table>
+            <thead>
+                <tr>
+                    <th>별점</th>
+                    <th>리뷰 내용</th>
+                    <th>방문 날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="review : ${reviewList}">
+                    <td th:text="${review.score}"></td>
+                    <td>
+                        <a th:text="${review.content}"
+                           th:href="${'/store/review/detail?id=' + review.id}">
+                        </a>
+                    </td>
+                    <td th:text="${review.booking.visitDate}"></td>
+                </tr>
+                <tr th:if="${#lists.size(reviewList) < 1}">
+                    <td colspan="3">
+                        <p class="nothing">내용이 없습니다.</p>
+                    </td>
+                </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>
