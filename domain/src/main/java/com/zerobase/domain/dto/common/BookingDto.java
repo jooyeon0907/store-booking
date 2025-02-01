@@ -32,9 +32,9 @@ public class BookingDto {
 		return BookingDto.builder()
 				.id(booking.getId())
 				.bookingDate(booking.getBookingDate())
-				.visitDate(booking.getVisitDate())
 				.bookingStatus(booking.getBookingStatus())
 				.visitDate(booking.getVisitDate())
+				.visitStatus(booking.isVisitStatus())
 				.customer(booking.getCustomer())
 				.store(booking.getStore())
 				.build();

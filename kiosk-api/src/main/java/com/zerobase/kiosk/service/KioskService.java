@@ -13,4 +13,6 @@ public interface KioskService {
 	Long getCustomerId(String phone);
 
 	BookingDto getBooking(Long customerId, BookingForm parameter);
+
+	void visitStatusUpdate(Long id);
 }

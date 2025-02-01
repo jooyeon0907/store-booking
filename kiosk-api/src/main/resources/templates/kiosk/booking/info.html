@@ -12,12 +12,43 @@
             border: solid 1px #000;
         }
     </style>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#visitStatusButton").click(function() {
+				var bookingId = $("input[name='id']").val();
+
+				$.ajax({
+					url: '/kiosk/booking/visit/update',
+					type: 'POST',
+					data: { id: bookingId },
+					success: function(response) {
+						// 요청이 성공하면
+						if (response.success) {
+							alert(response.message);
+							$("#visitForm").hide();
+							$("#isVisit").show();
+						} else {
+							alert(response.errorMessage);
+						}
+					},
+					error: function() {
+						alert("네트워크 오류가 발생했습니다.");
+					}
+				});
+			});
+		});
+	</script>
 </head>
 <body>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
 
 	<h1><span th:text="${session.storeName}"></span> 매장에 오신 것을 환영합니다!</h1>
 	<h2>예약 내역 조회</h2>
+
+	<div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
 
 	<div class="info" th:if="${booking != null}">
         <div th:if="${bookingMessage}" style="color: blue;">
@@ -38,11 +69,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-						<form th:action="@{/kiosk/booking/visit/update}" method="post">
+					<th>방문 상태</th>
+                    <td>
+						<form th:if="${!booking.visitStatus}" id="visitForm" method="post">
 							<input type="hidden" name="id" th:value="${booking.id}">
-							<button type="submit" name="visitStatus" value="true">방문 완료</button>
+							<button type="button" id="visitStatusButton">방문 완료</button>
 						</form>
+						<p id="isVisit" th:attr="style=${booking.visitStatus ? '' : 'display: none;'}">방문 완료</p>
                     </td>
                 </tr>
             </tbody>

@@ -11,10 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/kiosk")
@@ -69,6 +71,9 @@ public class KioskController {
 	@GetMapping("/home")
 	public String home(Model model, HttpSession session, StoreParam parameter) {
     	Long ownerId = (Long) session.getAttribute("ownerId");
+		if (ownerId == null) {
+			return "redirect:/kiosk/login";
+		}
 
 		return "kiosk/home";
 	}
@@ -77,19 +82,14 @@ public class KioskController {
 	public String bookingInfo(Model model, BookingForm parameter) {
 
 		Long customerId = -1L;
+		BookingDto booking = null;
+
 		try{
 			customerId = kioskService.getCustomerId(parameter.getPhone());
-		}catch (Exception e){
-			model.addAttribute("errorMessage", e.getMessage());
-			return "redirect:/kiosk/home";
-		}
-
-		BookingDto booking = null;
-		try{
 			booking = kioskService.getBooking(customerId, parameter);
 		}catch (Exception e){
 			model.addAttribute("errorMessage", e.getMessage());
-			return "/kiosk/home"; // 위 공통 로직 합치기 , String errorMessage
+			return "/kiosk/home";
 		}
 
 		model.addAttribute("booking", booking);
@@ -97,10 +97,23 @@ public class KioskController {
 		return "kiosk/booking/info";
 	}
 
+
+	@PostMapping("/booking/visit/update")
+	@ResponseBody //  JSON 응답을 반환하기 위한 어노테이션
+	public Map<String, Object> visitStatusUpdate(BookingForm parameter) {
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+			kioskService.visitStatusUpdate(parameter.getId());
+			response.put("success", true);
+			response.put("message", "방문 완료 처리되었습니다.");
+		} catch (Exception e) {
+			response.put("success", false);
+			response.put("errorMessage", e.getMessage());
+		}
+
+		return response;  // JSON 응답 반환
+	}
+
+
 }
-
-/*
-home 에서 전화번호 입력 폼 받고 -> post /booking/info 요청
-성공 시 예약내역조회는 get /booking/info
-
- */
