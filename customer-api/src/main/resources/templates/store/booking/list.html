@@ -15,6 +15,16 @@
             text-align: center;
             padding: 100px;
         }
+
+        .pager {
+            main-top: 20px;
+            text-align: center;
+        }
+
+        .pager a.on {
+            font-weight: bold;
+            color: red;
+        }
     </style>
 
 </head>
@@ -63,6 +73,9 @@
                     </td>
                 </tr>
         </table>
+
+        <div class="pager" th:utext="${pager}">
+        </div>
 
     </div>
 

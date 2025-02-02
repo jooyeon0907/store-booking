@@ -27,6 +27,8 @@ public class Store {
     private String location;
     private String description;
 
+    private Double averageScore;
+
 	@CreatedDate
     private LocalDateTime registrationDate;
 

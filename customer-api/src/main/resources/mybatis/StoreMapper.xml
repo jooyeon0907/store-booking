@@ -21,6 +21,9 @@
             <when test="sort == 'name'">
                 name ASC
             </when>
+            <when test="sort == 'rating'">
+                average_score DESC
+            </when>
             <otherwise>
                 registration_date DESC
             </otherwise>
@@ -45,6 +48,9 @@
           <choose>
             <when test="sort == 'name'">
                 name ASC
+            </when>
+            <when test="sort == 'rating'">
+                average_score DESC
             </when>
             <otherwise>
                 registration_date DESC

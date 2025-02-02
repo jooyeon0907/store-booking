@@ -1,11 +1,13 @@
 package com.zerobase.domain.dto.common;
 
+import com.zerobase.domain.entity.common.Review;
 import com.zerobase.domain.entity.common.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +24,15 @@ public class StoreDto {
 
 	long totalCount;
 
+    private Double averageScore;
+
     public static StoreDto of(Store store) {
         return StoreDto.builder()
                 .id(store.getId())
                 .name(store.getName())
                 .location(store.getLocation())
                 .description(store.getDescription())
+				.averageScore(store.getAverageScore())
                 .build();
     }
 

@@ -35,13 +35,15 @@
 <h1>매장 목록</h1>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
 
+
     <div class="search-form">
         <form method="get" action="/store/list">
             <input type="text" name="name" placeholder="가게 이름 검색" th:value="${param.name}">
 
             <select name="sort">
-                <option value="latest" th:selected="${param.sort == null or param.sort == 'latest'}">최신 등록순</option>
-                <option value="name" th:selected="${param.sort == 'name'}">이름순</option>
+                <option value="latest">최신 등록순</option>
+                <option value="name" th:selected="${#strings.equals(param.sort, 'name')}">이름순</option>
+                <option value="rating" th:selected="${#strings.equals(param.sort, 'rating')}">별점순</option>
             </select>
 
             <button type="submit">검색</button>
@@ -54,6 +56,7 @@
                 <tr>
                     <th>ID</th>
                     <th>이름</th>
+                    <th>별점</th>
                     <th>위치</th>
                     <th>설명</th>
                 </tr>
@@ -66,6 +69,7 @@
                            th:href="${'/store/detail?id=' + store.id}">
                         </a>
                     </td>
+                    <td th:text="${store.averageScore}"></td>
                     <td th:text="${store.location}"></td>
                     <td th:text="${store.description}"></td>
                 </tr>

@@ -20,12 +20,15 @@ public class StoreDto {
     private String location;
     private String description;
 
+    private Double averageScore;
+
     public static StoreDto of(Store store) {
         return StoreDto.builder()
                 .id(store.getId())
                 .name(store.getName())
                 .location(store.getLocation())
                 .description(store.getDescription())
+				.averageScore(store.getAverageScore())
                 .build();
     }
 
