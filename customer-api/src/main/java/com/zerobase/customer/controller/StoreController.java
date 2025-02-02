@@ -1,6 +1,7 @@
 package com.zerobase.customer.controller;
 
 import com.zerobase.customer.service.StoreService;
+import com.zerobase.customer.util.PageUtil;
 import com.zerobase.domain.dto.common.StoreDto;
 import com.zerobase.domain.model.common.StoreParam;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,22 @@ public class StoreController {
 
 	@GetMapping("/list")
 	public String list(Model model, StoreParam parameter) {
+
+		parameter.init();
+
 		List<StoreDto> list = storeService.list(parameter);
+
+		long totalCount = 0;
+		if (list != null && list.size() > 0) {
+			totalCount = list.get(0).getTotalCount();
+		}
+
+		String queryString = parameter.getQueryString();
+		PageUtil pageUtil = new PageUtil(totalCount, parameter.getPageSize(), parameter.getPageIndex(), queryString);
+
 		model.addAttribute("storeList", list);
+		model.addAttribute("pager", pageUtil.pager()) ;
+
 		return "store/list";
 	}
 

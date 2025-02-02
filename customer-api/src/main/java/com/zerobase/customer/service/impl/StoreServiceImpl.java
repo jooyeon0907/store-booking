@@ -14,6 +14,7 @@ import com.zerobase.domain.model.common.StoreParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -32,10 +33,16 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public List<StoreDto> list(StoreParam parameter) {
-//		List<Store> stores = storeRepository.findAll();
-//		return StoreDto.of(stores);
-
+		long totalCount = storeMapper.selectListCount(parameter);
 		List<StoreDto> list = storeMapper.selectList(parameter);
+
+
+		if (!CollectionUtils.isEmpty(list)) {
+			for(StoreDto store: list) {
+				store.setTotalCount(totalCount);
+			}
+		}
+
 		return list;
 	}
 

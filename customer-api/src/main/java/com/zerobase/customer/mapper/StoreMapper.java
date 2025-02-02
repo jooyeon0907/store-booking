@@ -11,4 +11,5 @@ import java.util.List;
 public interface StoreMapper {
 	List<StoreDto> selectList(StoreParam parameter);
 
+	long selectListCount(StoreParam parameter);
 }

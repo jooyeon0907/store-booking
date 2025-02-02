@@ -15,22 +15,38 @@
             text-align: center;
             padding: 100px;
         }
+
+        .search-form {
+            position: relative;
+            padding: 5px 0 10px 0;
+        }
+        .pager {
+            main-top: 20px;
+            text-align: center;
+        }
+
+        .pager a.on {
+            font-weight: bold;
+            color: red;
+        }
     </style>
 </head>
 <body>
 <h1>매장 목록</h1>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
 
-    <form method="get" action="/store/list">
-        <input type="text" name="name" placeholder="가게 이름 검색" th:value="${param.name}">
+    <div class="search-form">
+        <form method="get" action="/store/list">
+            <input type="text" name="name" placeholder="가게 이름 검색" th:value="${param.name}">
 
-        <select name="sort">
-            <option value="latest" th:selected="${param.sort == null or param.sort == 'latest'}">최신 등록순</option>
-            <option value="name" th:selected="${param.sort == 'name'}">이름순</option>
-        </select>
+            <select name="sort">
+                <option value="latest" th:selected="${param.sort == null or param.sort == 'latest'}">최신 등록순</option>
+                <option value="name" th:selected="${param.sort == 'name'}">이름순</option>
+            </select>
 
-        <button type="submit">검색</button>
-    </form>
+            <button type="submit">검색</button>
+        </form>
+    </div>
 
     <div class="list">
         <table>
@@ -59,6 +75,9 @@
                     </td>
                 </tr>
         </table>
+
+        <div class="pager" th:utext="${pager}">
+        </div>
 
     </div>
 

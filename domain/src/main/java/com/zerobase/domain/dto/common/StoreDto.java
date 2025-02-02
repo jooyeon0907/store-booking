@@ -20,6 +20,8 @@ public class StoreDto {
     private String location;
     private String description;
 
+	long totalCount;
+
     public static StoreDto of(Store store) {
         return StoreDto.builder()
                 .id(store.getId())

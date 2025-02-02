@@ -4,6 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zerobase.customer.mapper.StoreMapper">
 
+    <select id="selectListCount"
+            parameterType="com.zerobase.customer.mapper.StoreMapper"
+            resultType="long">
+
+        select count(*)
+        from store
+        where 1=1
+
+          <if test="name != null and name != ''">
+              and name like concat('%', #{name}, '%')
+          </if>
+
+        order by
+          <choose>
+            <when test="sort == 'name'">
+                name ASC
+            </when>
+            <otherwise>
+                registration_date DESC
+            </otherwise>
+          </choose>
+
+    </select>
+
+
     <select id="selectList"
             parameterType="com.zerobase.customer.mapper.StoreMapper"
             resultType="com.zerobase.domain.dto.common.StoreDto">
@@ -26,6 +51,7 @@
             </otherwise>
           </choose>
 
+        limit #{pageStart}, #{pageEnd}
     </select>
 
 
