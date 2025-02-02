@@ -24,8 +24,8 @@ public class StoreController {
 	}
 
 	@GetMapping("/list")
-	public String list(Model model) {
-		List<StoreDto> list = storeService.list();
+	public String list(Model model, StoreParam parameter) {
+		List<StoreDto> list = storeService.list(parameter);
 		model.addAttribute("storeList", list);
 		return "store/list";
 	}

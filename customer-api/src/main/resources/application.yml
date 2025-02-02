@@ -13,3 +13,9 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: booking_user
     password: 1234
+
+mybatis:
+  mapper-locations: mybatis/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,5 +1,6 @@
 package com.zerobase.customer.service.impl;
 
+import com.zerobase.customer.mapper.StoreMapper;
 import com.zerobase.domain.dto.common.BookingDto;
 import com.zerobase.customer.model.BookingForm;
 import com.zerobase.customer.repository.BookingRepository;
@@ -9,6 +10,7 @@ import com.zerobase.customer.service.StoreService;
 import com.zerobase.domain.dto.common.StoreDto;
 import com.zerobase.domain.entity.common.Booking;
 import com.zerobase.domain.entity.common.Store;
+import com.zerobase.domain.model.common.StoreParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -22,15 +24,19 @@ public class StoreServiceImpl implements StoreService {
 	private final CustomerRepository customerRepository;
 	private final StoreRepository storeRepository;
 	private final BookingRepository bookingRepository;
+	private final StoreMapper storeMapper;
 
 	private Sort getSortBySortValueDesc() {
 		return Sort.by(Sort.Direction.DESC, "sortValue");
 	}
 
 	@Override
-	public List<StoreDto> list() {
-		List<Store> stores = storeRepository.findAll();
-		return StoreDto.of(stores);
+	public List<StoreDto> list(StoreParam parameter) {
+//		List<Store> stores = storeRepository.findAll();
+//		return StoreDto.of(stores);
+
+		List<StoreDto> list = storeMapper.selectList(parameter);
+		return list;
 	}
 
 	@Override

@@ -21,6 +21,11 @@
 <h1>매장 목록</h1>
 	<div th:replace="/fragment/layout.html :: fragment-body-menu"></div>
 
+    <form method="get" action="/store/list">
+        <input type="text" name="name" placeholder="가게 이름 검색" th:value="${param.name}">
+        <button type="submit">검색</button>
+    </form>
+
     <div class="list">
         <table>
             <thead>
