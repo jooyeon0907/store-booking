@@ -7,6 +7,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import static com.zerobase.domain.entity.common.BookingStatus.PENDING;
 
 
 @Entity
@@ -28,6 +31,15 @@ public class Store {
     private String description;
 
     private Double averageScore;
+
+    private LocalTime openTime;
+    private LocalTime closeTime;
+
+	@PrePersist
+    public void prePersist() {
+        this.averageScore = 0.0;
+    }
+
 
 	@CreatedDate
     private LocalDateTime registrationDate;

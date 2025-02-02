@@ -7,12 +7,12 @@
 <body>
 	<div th:fragment="fragment-body-menu">
 		<div>
-			<a href="/store/detail">매장 정보</a>
-			|
-			<a href="/store/booking/list">예약 목록</a>
-			|
-			<a href="/store/review/list">리뷰 목록</a>
-			|
+			<a th:if="${ownerId != null}" href="/store/detail">매장 정보</a>
+			<span th:if="${ownerId != null}"> | </span>
+			<a th:if="${ownerId != null}" href="/store/booking/list">예약 목록</a>
+			<span th:if="${ownerId != null}"> | </span>
+			<a th:if="${ownerId != null}" href="/store/review/list">리뷰 목록</a>
+			<span th:if="${ownerId != null}"> | </span>
 
 			<a th:if="${ownerId == null}" href="/owner/login">로그인</a>
 			<span th:if="${ownerId == null}"> | </span>

@@ -1,6 +1,6 @@
 package com.zerobase.owner.controller;
 
-import com.zerobase.owner.dto.StoreDto;
+import com.zerobase.domain.dto.common.StoreDto;
 import com.zerobase.owner.repository.model.StoreInput;
 import com.zerobase.owner.service.StoreService;
 import jakarta.servlet.http.HttpServletRequest;

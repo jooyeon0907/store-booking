@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @ToString
 public class BookingForm {
 	private LocalDateTime visitDate;
+	private String visitDateStr;
+	private String visitTimeStr;
 	private Long customerId;
 	private Long storeId;
 }

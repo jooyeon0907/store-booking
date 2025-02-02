@@ -6,19 +6,49 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            // 현재 날짜와 시간을 'YYYY-MM-DDThh:mm' 형식으로 가져오기
+            // 매장 오픈 시간과 마감 시간을 Thymeleaf에서 전달된 값으로 설정
+            var openTime = '[[${store.openTime}]]';  // 예: '09:00:00'
+            var closeTime = '[[${store.closeTime}]]'; // 예: '22:00:00'
+
+            // 오픈 시간과 마감 시간을 Date 객체로 변환
+            var openDate = new Date("1970-01-01T" + openTime);
+            var closeDate = new Date("1970-01-01T" + closeTime);
+
+            // 예약 시간은 마감 시간 1시간 전까지 가능하므로, 마감 시간에서 1시간을 빼줍니다.
+            var maxReservationTime = new Date(closeDate);
+            maxReservationTime.setHours(closeDate.getHours() - 1);
+
+            // 'visitDateStr' input 필드를 초기화
+            var visitDateStrInput = $('#visitDateStr');
+            var visitTimeStrInput = $('#visitTimeStr');
+
+            // 30분 간격으로 예약 시간 리스트 만들기
+            var availableTimes = [];
+            for (var time = openDate; time < maxReservationTime; time.setMinutes(time.getMinutes() + 30)) {
+                // 시간을 'YYYY-MM-DDThh:mm' 형식으로 변환
+                var hours = ('0' + time.getHours()).slice(-2);
+                var minutes = ('0' + time.getMinutes()).slice(-2);
+                var formattedTime = hours + ':' + minutes;
+
+                availableTimes.push(formattedTime);
+            }
+
+            // 예약 가능 시간들로 'time' 입력 필드를 업데이트
+            availableTimes.forEach(function(time) {
+                visitTimeStrInput.append('<option value="' + time + '">' + time + '</option>');
+            });
+
+            // 현재 날짜와 시간을 'YYYY-MM-DD' 형식으로 가져오기
             var now = new Date();
             var year = now.getFullYear();
             var month = ('0' + (now.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 +1
             var day = ('0' + now.getDate()).slice(-2);
-            var hours = ('0' + now.getHours()).slice(-2);
-            var minutes = ('0' + now.getMinutes()).slice(-2);
 
-            // 'YYYY-MM-DDThh:mm' 형식으로 현재 시간 생성
-            var currentDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+            // 'YYYY-MM-DD' 형식으로 현재 날짜 생성
+            var currentDate = year + '-' + month + '-' + day;
 
-            // 현재 시간보다 이전 시간을 비활성화
-            document.getElementById('visitDate').setAttribute('min', currentDateTime);
+            // 'visitDateStr' input 필드를 최소 현재 날짜로 설정
+            document.getElementById('visitDateStr').setAttribute('min', currentDate);
         });
     </script>
 </head>
@@ -36,11 +66,21 @@
         <form method="post">
             <input th:value="${customerId}" type="hidden" name="customerId"/>
             <input th:value="${store.id}" type="hidden" name="storeId"/>
-            <label for="visitDate">방문 날짜 및 시간:</label>
-            <input type="datetime-local" id="visitDate" name="visitDate" required>
 
+			<!-- 날짜 선택 필드 -->
+            <label for="visitDateStr">방문 날짜:</label>
+            <input type="date" id="visitDateStr" name="visitDateStr" required>
+
+            <!-- 시간 선택 필드 -->
+            <label for="visitTimeStr">방문 시간:</label>
+            <select id="visitTimeStr" name="visitTimeStr" required>
+                <!-- 예약 시간 목록이 이곳에 동적으로 추가됩니다 -->
+            </select>
             <button type="submit">예약하기</button>
         </form>
+    </div>
+    <div>
+        <button type="button" onclick="window.history.back();">뒤로가기</button>
     </div>
 
 </body>

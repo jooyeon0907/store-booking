@@ -1,7 +1,7 @@
 package com.zerobase.owner.service.impl;
 
+import com.zerobase.domain.dto.common.StoreDto;
 import com.zerobase.domain.entity.common.Store;
-import com.zerobase.owner.dto.StoreDto;
 import com.zerobase.owner.repository.model.StoreInput;
 import com.zerobase.owner.repository.OwnerRepository;
 import com.zerobase.owner.repository.StoreRepository;
@@ -45,6 +45,8 @@ public class StoreServiceImpl implements StoreService {
 				.name(parameter.getName())
 				.location(parameter.getLocation())
 				.description(parameter.getDescription())
+				.openTime(parameter.getOpenTime())
+				.closeTime(parameter.getCloseTime())
 				.build();
 		storeRepository.save(store);
 
@@ -69,6 +71,8 @@ public class StoreServiceImpl implements StoreService {
 			store.setName(parameter.getName());
 			store.setLocation(parameter.getLocation());
 			store.setDescription(parameter.getDescription());
+			store.setOpenTime(parameter.getOpenTime());
+			store.setCloseTime(parameter.getCloseTime());
 			storeRepository.save(store);
 			return true;
 		}

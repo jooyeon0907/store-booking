@@ -10,6 +10,8 @@ import com.zerobase.domain.entity.common.Booking;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -23,14 +25,22 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public boolean create(BookingForm parameter) {
-		bookingRepository.findByStoreIdAndVisitDate(parameter.getStoreId(), parameter.getVisitDate())
+		// visitDateStr (yyyy-MM-dd)와 visitTimeStr (HH:mm) 합치기
+		String combinedDateTime = parameter.getVisitDateStr()+ "T" + parameter.getVisitTimeStr();
+
+		// DateTimeFormatter로 문자열을 LocalDateTime으로 변환
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+		LocalDateTime visitDateTime = LocalDateTime.parse(combinedDateTime, formatter);
+
+		bookingRepository.findByStoreIdAndVisitDate(parameter.getStoreId(), visitDateTime)
 				.ifPresent(store -> {
 					throw new RuntimeException("해당 시간은 이미 예약되어 있습니다.");
 				});
 
 
+
 		Booking booking = Booking.builder()
-				.visitDate(parameter.getVisitDate())
+				.visitDate(visitDateTime)
 				.customer(customerRepository.findById(parameter.getCustomerId()).get())
 				.store(storeRepository.findById(parameter.getStoreId()).get())
 				.build();

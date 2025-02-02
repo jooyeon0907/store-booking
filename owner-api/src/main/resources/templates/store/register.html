@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>매장 등록</title>
-    </script>
+	<script>
+		function validateForm(event) {
+			var openTime = document.getElementById("openTime").value;
+			var closeTime = document.getElementById("closeTime").value;
+
+			if (openTime >= closeTime) {
+				alert("마감 시간은 오픈 시간 이후여야 합니다.");
+				event.preventDefault();
+				return false;
+			}
+			return true;
+		}
+	</script>
 </head>
 <body>
     <h1>매장 등록</h1>
@@ -16,6 +28,14 @@
 	<form method="post" onsubmit="return validateForm(event)">
 		<div>
 			<input type="text" name="name" placeholder="이름 입력" required/>
+		</div>
+		<div>
+			<label for="openTime">오픈 시간</label>
+			<input type="time" id="openTime" name="openTime" required />
+		</div>
+		<div>
+			<label for="closeTime">마감 시간</label>
+			<input type="time" id="closeTime" name="closeTime" required />
 		</div>
 		<div>
 			<input type="location" name="location" placeholder="위치 입력" required/>
