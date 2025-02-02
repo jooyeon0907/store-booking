@@ -24,10 +24,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public boolean register(SignInForm parameter) {
-		Optional<Customer> optionalCustomer = customerRepository.findByName(parameter.getName());
+		Optional<Customer> optionalCustomer = customerRepository.findByNameOrPhone(parameter.getName(), parameter.getPhone());
 		if (optionalCustomer.isPresent()){
 			return false;
 		}
+
 
 		String encPassword = BCrypt.hashpw(parameter.getPassword(), BCrypt.gensalt());
 

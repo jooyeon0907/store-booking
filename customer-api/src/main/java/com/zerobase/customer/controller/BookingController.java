@@ -61,7 +61,9 @@ public class BookingController {
 			return "store/booking/create";
 		}
 
-        model.addAttribute("bookingMessage", "예약이 완료되었습니다! 예약 목록에서 확인해 주세요.");
+        model.addAttribute("bookingMessage",
+							"예약이 완료되었습니다! 예약 목록에서 확인해 주세요. " +
+									"10분 전까지만 방문 처리 가능하오니, 방문 시 참고 부탁드립니다.");
 		model.addAttribute("store", storeService.detail(parameter.getStoreId()));
 		return "store/detail";
 	}
