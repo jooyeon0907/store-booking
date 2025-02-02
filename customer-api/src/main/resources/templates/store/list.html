@@ -23,6 +23,12 @@
 
     <form method="get" action="/store/list">
         <input type="text" name="name" placeholder="가게 이름 검색" th:value="${param.name}">
+
+        <select name="sort">
+            <option value="latest" th:selected="${param.sort == null or param.sort == 'latest'}">최신 등록순</option>
+            <option value="name" th:selected="${param.sort == 'name'}">이름순</option>
+        </select>
+
         <button type="submit">검색</button>
     </form>
 

@@ -9,4 +9,6 @@ public class StoreParam {
     private String name;
     private String location;
     private String description;
+
+	private String sort;
 }
