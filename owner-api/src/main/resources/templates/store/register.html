@@ -8,7 +8,7 @@
 			var openTime = document.getElementById("openTime").value;
 			var closeTime = document.getElementById("closeTime").value;
 
-			if (openTime >= closeTime) {
+			if (openTime >= closeTime) { // 마감시간이 오픈시간보다 이전 시간이면 폼 제출 실패
 				alert("마감 시간은 오픈 시간 이후여야 합니다.");
 				event.preventDefault();
 				return false;
