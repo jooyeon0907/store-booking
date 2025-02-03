@@ -2,7 +2,5 @@ rootProject.name = 'store-booking'
 include 'customer-api'
 include 'owner-api'
 include 'kiosk-api'
-include 'shared-library'
-include 'api-gateway'
 include 'domain'
 
