@@ -24,11 +24,13 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public boolean register(SignInForm parameter) {
+		// 이미 등록된 이름이면 회원가입 실패
 		Optional<Owner> optionalOwner = ownerRepository.findByName(parameter.getName());
 		if (optionalOwner.isPresent()){
 			return false;
 		}
 
+		// 비밀번호 암호화하여 저장
 		String encPassword = BCrypt.hashpw(parameter.getPassword(), BCrypt.gensalt());
 
 		Owner owner = Owner.builder()
@@ -45,6 +47,9 @@ public class OwnerServiceImpl implements OwnerService {
 		return ownerRepository.findByName(name).get().getId();
 	}
 
+	/**
+	 *  Spring Security에서 사용자 정보를 로드하기 위해 구현하는 메서드
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Owner> optionalOwner = ownerRepository.findByName(username);

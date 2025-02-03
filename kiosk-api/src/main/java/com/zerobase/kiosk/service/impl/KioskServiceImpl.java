@@ -36,7 +36,7 @@ public class KioskServiceImpl implements KioskService {
 
 
 	@Override
-	public Long login(SignInForm parameter) {
+	public Long getOwnerId(SignInForm parameter) {
 
 		Optional<Owner> optionalOwner = ownerRepository.findByName(parameter.getName());
 		if (!optionalOwner.isPresent()) {
@@ -52,6 +52,7 @@ public class KioskServiceImpl implements KioskService {
 
 	@Override
 	public StoreDto getStore(Long ownerId) {
+		//
 		Store store = storeRepository.findByOwnerId(ownerId)
 				.orElseThrow(() -> new RuntimeException("등록된 매장이 없습니다. \n 관리자 홈페이지에서 매장을 등록해 주세요."));
 		return StoreDto.of(store);
@@ -64,6 +65,10 @@ public class KioskServiceImpl implements KioskService {
 		return customer.getId();
 	}
 
+	/**
+	 * 예약 조회
+	 * 	- 점주가 예약 승인한 금일 예약건 조회
+	 */
 	@Override
 	public BookingDto getBooking(Long customerId, BookingForm parameter) {
 		List<Booking> bookings =
@@ -79,6 +84,11 @@ public class KioskServiceImpl implements KioskService {
 		return BookingDto.of(bookings.get(0));
 	}
 
+	/**
+	 * 방문 완료 업데이트
+	 * 	- 방문 가능한 시간은 예약 시간 1시간 전부터 ~ 10분 전까지
+	 * 	- 그 외에 시간에 방문 요청 시, 실패 처리됨
+	 */
 	@Override
 	public void visitStatusUpdate(Long id) {
 

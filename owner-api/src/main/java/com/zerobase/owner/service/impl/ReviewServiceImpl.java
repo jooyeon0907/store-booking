@@ -25,6 +25,9 @@ public class ReviewServiceImpl implements ReviewService {
 	private final StoreRepository storeRepository;
 	private final ReviewRepository reviewRepository;
 
+	/**
+	 * 로그인 된 점주 매장에 작성된 리뷰 목록 조회
+	 */
 	@Override
 	public List<ReviewDto> list(Long ownerId) {
 		Optional<Store> optionalStore = storeRepository.findByOwnerId(ownerId);

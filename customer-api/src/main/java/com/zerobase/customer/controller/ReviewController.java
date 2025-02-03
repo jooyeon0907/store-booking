@@ -2,10 +2,7 @@
 package com.zerobase.customer.controller;
 
 import com.zerobase.customer.service.ReviewService;
-import com.zerobase.customer.service.StoreService;
 import com.zerobase.domain.dto.common.ReviewDto;
-import com.zerobase.domain.dto.common.StoreDto;
-import com.zerobase.domain.entity.common.Review;
 import com.zerobase.domain.model.common.ReviewParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +22,9 @@ public class ReviewController {
 
 	private final ReviewService reviewService;
 
+	/**
+	 * 리뷰 조회
+	 */
 	@GetMapping("/list")
 	public String list(Model model, HttpSession session) {
 		List<ReviewDto> list = reviewService.list((Long) session.getAttribute("customerId"));
@@ -33,6 +33,9 @@ public class ReviewController {
 		return "customer/review/list";
 	}
 
+	/**
+	 * 리뷰 작성 페이지
+	 */
 	@GetMapping("/write")
 	public String review(Model model, ReviewParam parameter) {
 		model.addAttribute("storeName", parameter.getStoreName());
@@ -40,6 +43,9 @@ public class ReviewController {
 		return "customer/review/write";
 	}
 
+	/**
+	 * 리뷰 작성 처리
+	 */
 	@PostMapping("/write")
 	public String reviewSubmit(Model model, ReviewParam parameter) {
 		ReviewDto review = null;
@@ -60,7 +66,9 @@ public class ReviewController {
 		return "customer/review/detail";
 	}
 
-
+	/**
+	 * 리뷰 상세 페이지
+	 */
 	@GetMapping("/detail")
 	public String detail(Model model, ReviewParam parameter) {
 		ReviewDto review = null;
@@ -76,6 +84,9 @@ public class ReviewController {
 		return "customer/review/detail";
 	}
 
+	/**
+	 * 리뷰 수정 페이지
+	 */
 	@GetMapping("/edit")
 	public String edit(Model model, HttpServletRequest request,  ReviewParam parameter) {
 		ReviewDto review = null;
@@ -89,6 +100,10 @@ public class ReviewController {
 		return "customer/review/edit";
 	}
 
+	/**
+	 * 리뷰 수정 내용 업데이트 처리
+	 * 	- 상세 페이지로 리다이렉트
+	 */
 	@PostMapping("/update")
 	public String update(ReviewParam parameter) {
 		boolean result = reviewService.update(parameter);
@@ -96,6 +111,10 @@ public class ReviewController {
 		return "redirect:/customer/review/detail?id=" + parameter.getId();
 	}
 
+	/**
+	 * 리뷰 삭제 처리
+	 * -	 리뷰 목록 페이지로 리다이렉트
+	 */
 	@PostMapping("/delete")
 	public String delete(ReviewParam parameter) {
 		boolean result = false;

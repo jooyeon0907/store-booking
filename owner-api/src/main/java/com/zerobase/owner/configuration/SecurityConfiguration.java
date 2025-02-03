@@ -15,7 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfiguration {
+public class SecurityConfiguration {  // Spring Security 를 이용한 로그인/로그아웃 구현
 
     private final OwnerService ownerService;
 

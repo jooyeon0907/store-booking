@@ -6,8 +6,6 @@ import com.zerobase.kiosk.model.BookingForm;
 import com.zerobase.kiosk.model.SignInForm;
 
 public interface KioskService {
-	Long login(SignInForm parameter);
-
 	StoreDto getStore(Long ownerId);
 
 	Long getCustomerId(String phone);
@@ -15,4 +13,6 @@ public interface KioskService {
 	BookingDto getBooking(Long customerId, BookingForm parameter);
 
 	void visitStatusUpdate(Long id);
+
+	Long getOwnerId(SignInForm parameter);
 }

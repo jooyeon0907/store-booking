@@ -20,6 +20,9 @@ public class BookingController {
 
 	private final BookingService bookingService;
 
+	/**
+	 * 예약 목록 조회
+	 */
 	@GetMapping("/list")
 	public String list(Model model, HttpServletRequest request) {
 		addBookingListToModel(request, model);
@@ -27,7 +30,10 @@ public class BookingController {
 		return "store/booking/list";
 	}
 
-
+	/**
+	 * 예약 상태 변경 (승인/거절)
+	 * 	- 고객이 예약한 건에 대해 예약 승인 및 거절 처리
+	 */
 	@PostMapping("/status/update")
 	public String updateBookingStatus(Model model, HttpServletRequest request, BookingForm parameter) {
 

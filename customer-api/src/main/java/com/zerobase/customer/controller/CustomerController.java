@@ -22,11 +22,17 @@ public class CustomerController {
 		return "customer/index";
 	}
 
+	/**
+	 * 고객 회원가입 페이지로 이동
+	 */
 	@GetMapping("/register")
 	public String register() {
 		return "customer/register";
 	}
 
+	/**
+	 * 고객 회원가입 처리
+	 */
 	@PostMapping("/register")
 	public String registerSubmit(Model model, HttpServletRequest request, SignInForm parameter) {
 
@@ -36,6 +42,9 @@ public class CustomerController {
 		return "customer/register_complete";
 	}
 
+	/**
+	 * 고객 로그인 페이지로 이동
+	 */
 	@GetMapping("/login")
 	public String login() {
 		return "customer/login";

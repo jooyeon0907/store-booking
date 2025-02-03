@@ -17,21 +17,22 @@ public class OwnerController {
 
 	private final OwnerService ownerService;
 
-
 	@GetMapping
 	public String owner(HttpServletRequest request){
-		Long ownerId = (Long) request.getSession().getAttribute("ownerId");
-
-        // ownerId를 이용해 필요한 처리를 합니다.
-        System.out.println("Logged in Owner ID: " + ownerId);
-		return "owner/index";
+			return "owner/index";
 	}
 
+	/**
+	 * 점주 회원가입 페이지로 이동
+	 */
 	@GetMapping("/register")
 	public String register() {
 		return "owner/register";
 	}
 
+	/**
+	 * 점주 회원가입 처리
+	 */
 	@PostMapping("/register")
 	public String registerSubmit(Model model, HttpServletRequest request, SignInForm parameter) {
 
@@ -41,11 +42,11 @@ public class OwnerController {
 		return "owner/register_complete";
 	}
 
+	/**
+	 * 점주 로그인 페이지로 이동
+	 */
 	@GetMapping("/login")
 	public String login(HttpServletRequest request) {
-		Long ownerId = (Long) request.getSession().getAttribute("ownerId");
-
-        System.out.println("login in Owner ID: " + ownerId);
 		return "owner/login";
 	}
 

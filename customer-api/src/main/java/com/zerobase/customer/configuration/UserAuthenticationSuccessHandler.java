@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 
 import java.io.IOException;
 
+// 사용자 인증 성공 핸들러
 @RequiredArgsConstructor
 public class UserAuthenticationSuccessHandler extends  SimpleUrlAuthenticationSuccessHandler {
 
@@ -22,7 +23,7 @@ public class UserAuthenticationSuccessHandler extends  SimpleUrlAuthenticationSu
 	 	System.out.println("로그인 성공!");
 
 	 	User userDetails = (User) authentication.getPrincipal();
-		request.getSession().setAttribute("customerId", customerService.getId(userDetails.getUsername()));  // 세션에 저장
+		request.getSession().setAttribute("customerId", customerService.getId(userDetails.getUsername()));  // 로그아웃 성공 시, 세션에 고객 id 저장
 
         response.sendRedirect("/store/list");  // 홈 페이지로 리다이렉트
 	}

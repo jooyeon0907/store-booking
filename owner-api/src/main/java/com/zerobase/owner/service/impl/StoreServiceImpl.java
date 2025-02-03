@@ -31,10 +31,12 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public boolean register(Long ownerId, StoreInput parameter) {
+		// 점주는 1개의 매장만 등록할 수 있으므로, 해당 점주가 등록된 매장이 있으면 실패 처리
 		storeRepository.findByOwnerId(ownerId)
 				.ifPresent(store -> {
 					throw new RuntimeException("이미 매장을 등록하였습니다.");
 				});
+		// 이미 등록된 이름은 실패 처리
 		storeRepository.findByName(parameter.getName())
 				.ifPresent(store -> {
 					throw new RuntimeException("이미 등록되어 있는 매장명입니다.");

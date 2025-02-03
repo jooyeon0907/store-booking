@@ -43,6 +43,7 @@ public class ReviewServiceImpl implements ReviewService {
 				.build();
 		reviewRepository.save(review);
 
+		// 리뷰 작성 후, 해당 매장의 점수 업데이트
 		updateAverageScore(booking.getStore());
 
 		return ReviewDto.of(review);
@@ -84,6 +85,7 @@ public class ReviewServiceImpl implements ReviewService {
 			review.setContent(parameter.getContent());
 			reviewRepository.save(review);
 
+			// 리뷰 작성 후, 해당 매장의 점수 업데이트
         	updateAverageScore(review.getBooking().getStore());
 			return true;
 		}

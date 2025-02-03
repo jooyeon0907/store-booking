@@ -24,6 +24,9 @@ public class StoreController {
 		return "store/index";
 	}
 
+	/**
+	 * 매장 목록 조회
+	 */
 	@GetMapping("/list")
 	public String list(Model model, StoreParam parameter) {
 
@@ -45,6 +48,9 @@ public class StoreController {
 		return "store/list";
 	}
 
+	/**
+	 * 매장 상세 내용 조회
+	 */
 	@GetMapping("/detail")
 	public String detail(Model model, StoreParam parameter) {
 

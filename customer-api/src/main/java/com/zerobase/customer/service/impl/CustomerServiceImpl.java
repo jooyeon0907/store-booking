@@ -22,6 +22,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	private final CustomerRepository customerRepository;
 
+	/**
+	 * 회원가입 처리
+	 * 	- 이미 등록된 이름이나 전화번호가 있다면 회원 가입 실패
+	 * 	- 비밀번호 암호화하여 저장
+	 */
 	@Override
 	public boolean register(SignInForm parameter) {
 		Optional<Customer> optionalCustomer = customerRepository.findByNameOrPhone(parameter.getName(), parameter.getPhone());
@@ -47,6 +52,9 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.findByName(name).get().getId();
 	}
 
+	/**
+	 *  Spring Security에서 사용자 정보를 로드하기 위해 구현하는 메서드
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Customer> optionalCustomer = customerRepository.findByName(username);

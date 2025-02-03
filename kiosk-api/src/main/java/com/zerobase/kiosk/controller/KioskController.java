@@ -27,7 +27,7 @@ public class KioskController {
 
 	@GetMapping("/")
 	public String index() {
-		return "redirect:/kiosk/login";
+		return "redirect:/home";
 	}
 
 	@GetMapping("/login")
@@ -35,21 +35,25 @@ public class KioskController {
 		return "kiosk/login";
 	}
 
+	/**
+	 * 키오스크에 점주 로그인
+	 * 	- 로그인 성공 시, 점주 id, 매장 id, 매장 이름을 세션에 저장
+	 */
 	@PostMapping("/login")
-	public String loginSubmit(Model model, HttpServletRequest request, HttpSession session, SignInForm parameter) {
+	public String loginSubmit(Model model, HttpSession session, SignInForm parameter) {
 
 		Long ownerId = -1L;
 		StoreDto store = null;
 
 		try{
-			ownerId = kioskService.login(parameter);
+			ownerId = kioskService.getOwnerId(parameter);
 		}catch (Exception e){
 			model.addAttribute("errorMessage", e.getMessage());
 			return "kiosk/login";
 		}
 
 		try{
-			store = kioskService.getStore(ownerId);
+			store = kioskService.getStore(ownerId); // 매장이 등록되지 않은 점주는 로그인 실패
 		}catch (Exception e){
 			model.addAttribute("errorMessage", e.getMessage());
 			return "kiosk/login";
@@ -62,12 +66,20 @@ public class KioskController {
 		return "redirect:/kiosk/home";
 	}
 
+	/**
+	 * 키오스크에 점주 로그아웃
+	 * 	- 로그아웃 성공 시, 세션 초기화
+	 */
 	@PostMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate(); // 세션 전체 무효화
 		return "redirect:/kiosk/login";
 	}
 
+	/**
+	 * 키오스크 홈으로 이동
+	 * 	- 점주 로그인이 되지 않았다면 로그인 페이지로 리다이렉트
+	 */
 	@GetMapping("/home")
 	public String home(Model model, HttpSession session, StoreParam parameter) {
     	Long ownerId = (Long) session.getAttribute("ownerId");
@@ -78,6 +90,10 @@ public class KioskController {
 		return "kiosk/home";
 	}
 
+	/**
+	 * 예약 조회 요청
+	 * - 조회 성공 시, 예약 조회 페이지로 이동
+	 */
 	@PostMapping("/booking/info")
 	public String bookingInfo(Model model, BookingForm parameter) {
 
@@ -97,7 +113,9 @@ public class KioskController {
 		return "kiosk/booking/info";
 	}
 
-
+	/**
+	 * 방문 처리 요청
+	 */
 	@PostMapping("/booking/visit/update")
 	@ResponseBody //  JSON 응답을 반환하기 위한 어노테이션
 	public Map<String, Object> visitStatusUpdate(BookingForm parameter) {

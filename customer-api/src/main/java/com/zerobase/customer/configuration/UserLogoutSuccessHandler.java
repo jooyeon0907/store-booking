@@ -8,9 +8,11 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import java.io.IOException;
 
+// 사용자 로그아웃 성공 핸들러
 public class UserLogoutSuccessHandler implements LogoutSuccessHandler {
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		// 로그아웃 성공 시, 세션에 고객 id 삭제
         request.getSession().removeAttribute("customerId");
         response.sendRedirect("/customer");
 	}

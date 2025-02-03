@@ -27,7 +27,9 @@ public class BookingController {
 		return "store/booking/index";
 	}
 
-
+	/**
+	 * 예약 목록 조회
+	 */
 	@GetMapping("/list")
 	public String list(Model model, HttpServletRequest request) {
 		Long customerId = (Long) request.getSession().getAttribute("customerId");
@@ -37,6 +39,9 @@ public class BookingController {
 		return "store/booking/list";
 	}
 
+	/**
+	 * 예약 생성 페이지
+	 */
 	@GetMapping("/create")
 	public String booking(Model model, BookingForm parameter) {
 		model.addAttribute("store", storeService.detail(parameter.getStoreId()));
@@ -44,6 +49,9 @@ public class BookingController {
 		return "store/booking/create";
 	}
 
+	/**
+	 * 예약 생성 처리
+	 */
 	@PostMapping("/create")
 	public String bookingComplete(Model model, BookingForm parameter) {
         boolean result = false;
